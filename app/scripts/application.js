@@ -2,27 +2,35 @@
 	'use strict';
 
 	var root = this;
+	var _ = root._;
 
 	root.define([
 		'backbone',
 		'communicator',
-		'hbs!tmpl/welcome'
+		'modules/config'
 	],
 
-	function( Backbone, Communicator, Welcome_tmpl ) {
-		console.log("application.js setup");
-
-		var welcomeTmpl = Welcome_tmpl;
+	function( Backbone, Communicator, moduleConfiguration ) {
 
 		var App = new Backbone.Marionette.Application();
 
 		/* Add initializers here */
 		App.addInitializer( function () {
-			console.log("Marionette AMD application has started");
-			document.body.innerHTML = welcomeTmpl({ success: "CONGRATS!" });
+			console.log("APP:START");
 
-			// publish application start event
-			Communicator.mediator.trigger("APP:START");
+			// run through module config 
+			var preLoadModules = [];
+			_.each( moduleConfiguration, function(value, key, list) {
+				// preload any module for APP:START
+				if( value === "APP:START" ) {
+					preLoadModules.push( 'modules/' + key );
+				}
+			});
+
+			root.require(preLoadModules, function(){
+				// publish application start event when the pre load modules have arrived
+				Communicator.mediator.trigger("APP:START");
+			});
 		});
 
 		return App;
