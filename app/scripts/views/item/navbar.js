@@ -47,11 +47,13 @@
 			handleLogin: function( e ) {
 				e.preventDefault();
 				console.log("handleLogin");
+				this.trigger( "NAV:ACCOUNT", "LOGIN" );
 			},
 
 			handleRegister: function( e ) {
 				e.preventDefault();
 				console.log("handleRegister");
+				this.trigger( "NAV:ACCOUNT", "REGISTER" );
 			},
 
 			handleSubmitTalk: function( e ) {

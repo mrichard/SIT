@@ -41,10 +41,13 @@
 
 				MyModule.addInitializer(function(){
 				    console.log("Starting Modal module !!");
-
-				    Communicator.mediator.on( "MODAL:SHOW", this.controller.region.showModal, this.controller.region );
-					Communicator.mediator.on( "MODAL:HIDE", this.controller.region.hideModal, this.controller.region );
+				    this.controller.initModal();
 				});
+			},
+
+			initModal: function() {
+				Communicator.command.setHandler( "APP:MODAL:SHOW", this.region.showModal, this.region );
+				Communicator.command.setHandler( "APP:MODAL:HIDE", this.region.hideModal, this.region );
 			}
 		});
 

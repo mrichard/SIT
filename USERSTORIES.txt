@@ -20,8 +20,9 @@ USER STORIES:
 
 
 TO DO:
-	git clone the backbone amd generator
-	edit such that it works better for us (maybe with marionette)
-	have it auto gen unit test
+	set up Baucis for Account Model
+	try to add middleware
+	set up backbone Account model with Baucis API endpoints
 
-	looking into adding the npm install generators to the package.json
+
+

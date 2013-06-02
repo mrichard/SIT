@@ -8,10 +8,8 @@ module.exports = function() {
 	var AccountSchema = new mongoose.Schema({
 		email: { type: String, unique: true },
 		password: { type: String },
-		name: {
-			first: { type: String },
-			last: { type: String }
-		},
+		firstName: { type: String },
+		lastName: { type: String },
 		photoUrl: { type: String },
 		title: { type: String }
 	});
@@ -46,7 +44,7 @@ module.exports = function() {
 
 	};
 
-	var login = function( email. password, callback ) {
+	var login = function( email, password, callback ) {
 		var shaSum = crypto.createHash( 'sha256' );
 		shaSum.update( password );
 

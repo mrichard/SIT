@@ -39,9 +39,19 @@
 
 				MyModule.addInitializer(function(){
 				    console.log("Starting navigation module !!");
-
-				    this.controller.region.show( new NavBar({ model: account }) );
+				    this.controller.initNavBar();
 				});
+			},
+
+			initNavBar: function() {
+				var navBar = new NavBar({ model: account });
+				navBar.on( "NAV:ACCOUNT", this.handleAccount, this );
+				this.region.show( navBar );
+			},
+
+			handleAccount: function( action ) {
+				console.log("handleAccount");
+				Communicator.command.execute( "APP:ACCOUNT:" + action);
 			}
 		});
 
