@@ -7,27 +7,29 @@
 		'backbone',
 		'communicator',
 		'modules/config',
-		'views/item/navbar',
-		'models/account'
+		'regions/modalRegion'
 	],
-	function( Backbone, Communicator, moduleConfiguration, NavBar, account ) {
+	function( Backbone, Communicator, moduleConfiguration, ModalRegion ) {
 
-		var Navigation = Backbone.Marionette.Controller.extend({
+		var Modal = Backbone.Marionette.Controller.extend({
 		
 			initialize: function( options ) {
-				console.log("initialize a Navigation Controller");
+				console.log("initialize a Modal Controller");
 
 				// module name
-				this._name = "navigation";
+				this._name = "modal";
 
 				// create a region
-				this.region = Communicator.reqres.request( "RM:addRegion", _.uniqueId('region_'), '#nav-region' );
+				this.region = Communicator.reqres.request( "RM:addRegion", _.uniqueId('region_'), {
+					selector: '#modal-region',
+					regionType: ModalRegion 
+				});
 
 				// create a module
 				this.submodules = {};
 				this.module = Backbone.Marionette.Module.create( this, this._name, this.moduleDefinition );
 
-				// subscribe to events
+				// subscribe to start up events
 				Communicator.mediator.on( moduleConfiguration[ this._name ], this.module.start, this.module);
 			},
 
@@ -38,14 +40,15 @@
 				MyModule.controller = Controller;
 
 				MyModule.addInitializer(function(){
-				    console.log("Starting navigation module !!");
+				    console.log("Starting Modal module !!");
 
-				    this.controller.region.show( new NavBar({ model: account }) );
+				    Communicator.mediator.on( "MODAL:SHOW", this.controller.region.showModal, this.controller.region );
+					Communicator.mediator.on( "MODAL:HIDE", this.controller.region.hideModal, this.controller.region );
 				});
 			}
 		});
 
-		return new Navigation();
+		return new Modal();
 
 	});
 }).call( this );

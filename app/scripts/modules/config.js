@@ -5,7 +5,8 @@
 
     // define object literal of module configuration
     root.define({
-	    navigation: "APP:START"
+	    navigation: "APP:START",
+	    modal: "APP:START"
 	});
 
 }).call( this );

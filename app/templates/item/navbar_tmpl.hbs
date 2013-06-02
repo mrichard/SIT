@@ -1,0 +1,21 @@
+<div class="navbar-inner">
+	<div class="container">	
+		<a href="./index.html" class="brand">SIT</a>
+		<div class="nav-collapse collapse">
+			<ul class="nav">
+				<li class="login"><a href="#">Login</a></li>
+				<li class="register"><a href="#">Register</a></li>
+				{{#email}}
+				<li class="submit-talk"><a href="#">Submit Talk</a><li>
+				<li class="account-pref"><a href="#">Account Preference</a><li>
+				{{/email}}
+			</ul>
+
+			{{#email}}
+			<ul class="nav pull-right">
+				<li class="username"><a href="#">Welcome {{firstName}} {{lastName}}</a></li>
+			</ul>
+			{{/email}}
+		</div>
+	</div>
+</div>
