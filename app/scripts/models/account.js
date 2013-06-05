@@ -50,10 +50,19 @@
 				if( invalidInputs > 0 ){
 					return _.extend({ error: "Please fill in all inputs" }, _.clone(attributes) );
 				}
+			},
+
+			login: function( inputs ) {
+				this.save( inputs, { 
+					wait: true, 
+					toValidate: ['email', 'password'],
+					url: '/api/v1/login'
+				});
 			}
+
 		});
 
-		/* Account is a sungleton */
+		/* Account is a singleton */
 		return new Account();
 	});
 }).call( this );

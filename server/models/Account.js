@@ -53,7 +53,7 @@ module.exports = function() {
 			password: shaSum.digest( 'hex' )
 		},
 		function( err, doc ) {
-			callback( null !== doc );
+			callback( err, doc );
 		});
 	};
 

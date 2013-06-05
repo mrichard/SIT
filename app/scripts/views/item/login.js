@@ -35,7 +35,8 @@
 
 			handleLoginSubmit: function( e ){
 				e.preventDefault();
-				this.model.save( Backbone.Syphon.serialize(this), { wait: true, toValidate: ['email', 'password'] });
+				this.model.login( Backbone.Syphon.serialize( this ) );
+				//this.model.save( Backbone.Syphon.serialize(this), { wait: true, toValidate: ['email', 'password'] });
 			},
 
 			handleError: function( model, errorObject, options ) {
