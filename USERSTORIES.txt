@@ -25,4 +25,8 @@ TO DO:
 	set up backbone Account model with Baucis API endpoints
 
 
+The request gets a number of cool properties, like 
+	request.ip to get the IP address
+	request.files to get uploaded files.
+
 
