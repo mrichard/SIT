@@ -27,4 +27,8 @@ TO DO:
 	add connect-mongo as session store
 
 
+The request gets a number of cool properties, like 
+	request.ip to get the IP address
+	request.files to get uploaded files.
+
 
