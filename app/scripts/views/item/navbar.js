@@ -14,6 +14,7 @@
 		
 			initialize: function() {
 				console.log("initialize a Navbar ItemView");
+				this.listenTo( this.model, "change", this.render, this );
 			},
 			
 	    	template: {

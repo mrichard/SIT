@@ -24,5 +24,7 @@ TO DO:
 	try to add middleware
 	set up backbone Account model with Baucis API endpoints
 
+	add connect-mongo as session store
+
 
 

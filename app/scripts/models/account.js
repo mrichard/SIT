@@ -15,7 +15,8 @@
 			},
 
 			defaults: {
-				email: false,
+				loggedIn: false,
+				email: '',
 				password: '',
 				firstName: '',
 				lastName: '',
@@ -23,17 +24,28 @@
 				title: ''
 			},
 
+			idAttribute: '_id',
+
 			urlRoot: "/api/v1/accounts",
 
 			parse: function( response, options ) {
+
+				if( response.error ) {
+					this.promise.complete( _.bind(function() {
+						this.trigger( "invalid", this, { error: response.error });
+						this.promise = null;
+					}, this) );
+
+					return null;
+				}
+
+				response.loggedIn = true
 				return response;
 			},
 
 			validate: function( attributes, options ) {
 				console.log( "Account validate");
 				console.log(arguments);
-
-
 
 				var invalidInputs = _.filter( attributes, function(value, key, list) {
 					// if passed a specific list of attributes to validate
@@ -53,10 +65,32 @@
 			},
 
 			login: function( inputs ) {
-				this.save( inputs, { 
+				 this.promise = this.save( inputs, { 
 					wait: true, 
 					toValidate: ['email', 'password'],
-					url: '/api/v1/login'
+					url: '/api/v1/login',
+					success: function( model, resp, options ) {
+						console.log('custom login success handler');
+						console.log( model );
+					}
+				});
+			},
+
+			register: function( inputs ) {
+				this.promise = this.save( inputs, {
+					wait: true,
+					toValidate: ['email', 'password', 'firstName', 'lastName', 'title'],
+					url: 'api/v1/register',
+					success: function( model, resp, options ) {
+						console.log('custom register success handler');
+						console.log( model );
+					}
+				});
+			},
+			
+			isAuthenticated: function() {
+				return this.fetch({
+					url: 'api/v1/authenticated'
 				});
 			}
 

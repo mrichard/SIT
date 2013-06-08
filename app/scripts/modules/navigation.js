@@ -44,9 +44,13 @@
 			},
 
 			initNavBar: function() {
+
+				// on init nav bar check if we are authenticated
+				// then build the nav bar
 				var navBar = new NavBar({ model: account });
 				navBar.on( "NAV:ACCOUNT", this.handleAccount, this );
 				this.region.show( navBar );
+				account.isAuthenticated()
 			},
 
 			handleAccount: function( action ) {

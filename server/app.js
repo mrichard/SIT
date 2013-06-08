@@ -15,7 +15,7 @@ var account = require('./routes/Account');
 
 var routeRoot = config.routeRoot;
 
-// init express
+/*** APP ***/
 var app = express();
 
 app.configure(function(){
@@ -25,28 +25,30 @@ app.configure(function(){
     app.set('views', __dirname + '../app/scripts/views');
 });
 
-// set logging
+
+/*** MIDDLEWARE ***/
 app.use(function(req, res, next){
   console.log('%s %s', req.method, req.url);
   next();
 });
-
-// mount static
 app.use(express.static( path.join( __dirname, '../app') ));
 app.use(express.static( path.join( __dirname, '../.tmp') ));
-
-//body parser
 app.use( express.bodyParser() );
+app.use( express.cookieParser() );
+app.use( express.session({ secret: '121212121212' }) );
 
-// route index.html
+
+/*** ROUTES ***/
 app.get('/', function(req, res){
   res.sendfile( path.join( __dirname, '../app/index.html' ) );
 });
 
-// Routes
-app.post( path.join('/api/v1/login'), account.login );
+app.post( '/api/v1/login', account.login );
+app.post( '/api/v1/register', account.register );
+app.get( '/api/v1/authenticated', account.authenticated );
 
-// start server
+
+/*** START SERVER ***/
 var createServer = function() {
 	http.createServer(app).listen(app.get('port'), function(){
 		console.log('Express App started!');

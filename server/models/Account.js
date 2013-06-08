@@ -3,7 +3,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 
-module.exports = function() {
+module.exports = (function() {
 
 	var AccountSchema = new mongoose.Schema({
 		email: { type: String, unique: true },
@@ -24,7 +24,7 @@ module.exports = function() {
 		return console.log( 'Account was created' );
 	};
 
-	var register = function( email, password, firstName, lastName ) {
+	var register = function( email, password, firstName, lastName, title, callback ) {
 		var shaSum = crypto.createHash( 'sha256' );
 		shaSum.update( password );
 
@@ -32,16 +32,14 @@ module.exports = function() {
 
 		var user = new Account({
 			email: email,
-			name: {
-				first: firstName,
-				last: lastName
-			},
-			password: shaSum.digest( 'hex' )
+			password: shaSum.digest( 'hex' ),
+			firstName: firstName,
+			lastName: lastName,
+			title: title
 		});
 
-		user.save( registerCallback );
+		user.save( callback );
 		console.log( 'Save command was sent' );
-
 	};
 
 	var login = function( email, password, callback ) {
@@ -52,8 +50,8 @@ module.exports = function() {
 			email: email,
 			password: shaSum.digest( 'hex' )
 		},
-		function( err, doc ) {
-			callback( err, doc );
+		function( err, account ) {
+			callback( err, account );
 		});
 	};
 
@@ -62,4 +60,4 @@ module.exports = function() {
 		register: register,
 		Account: Account
 	};
-};
+})();

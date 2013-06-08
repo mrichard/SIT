@@ -36,12 +36,10 @@
 			handleLoginSubmit: function( e ){
 				e.preventDefault();
 				this.model.login( Backbone.Syphon.serialize( this ) );
-				//this.model.save( Backbone.Syphon.serialize(this), { wait: true, toValidate: ['email', 'password'] });
 			},
 
 			handleError: function( model, errorObject, options ) {
 				console.log("Login: handleError");
-				console.log(arguments);
 
 				this.templateHelpers = errorObject;
 				this.render();
