@@ -5,9 +5,10 @@
 
 	root.define([
 		'backbone',
-		'hbs!tmpl/item/login_tmpl'
+		'hbs!tmpl/item/login_tmpl',
+		'communicator'
 	],
-	function( Backbone, LoginTmpl  ) {
+	function( Backbone, LoginTmpl, Communicator  ) {
 
 		/* Return a ItemView class definition */
 		return Backbone.Marionette.ItemView.extend({
@@ -27,6 +28,8 @@
 
 			/* Ui events hash */
 			events: {
+				"click .account-signup": "handleAccountSignUp",
+				"click .account-forgotpw": "handleForgotPw",
 				"click button[type='submit']": "handleLoginSubmit"
 			},
 
@@ -36,6 +39,18 @@
 			handleLoginSubmit: function( e ){
 				e.preventDefault();
 				this.model.login( Backbone.Syphon.serialize( this ) );
+			},
+
+			handleAccountSignUp: function( e ) {
+				e.preventDefault();
+				e.stopPropagation();
+				Communicator.command.execute( "APP:ACCOUNT:REGISTER" );
+			},
+
+			handleForgotPw: function( e ) {
+				e.preventDefault();
+				e.stopPropagation();
+				Communicator.command.execute( "APP:ACCOUNT:FORGOTPW" );
 			},
 
 			handleError: function( model, errorObject, options ) {

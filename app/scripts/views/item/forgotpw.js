@@ -5,22 +5,22 @@
 
 	root.define([
 		'backbone',
-		'hbs!tmpl/item/register_tmpl',
+		'hbs!tmpl/item/forgotpw_tmpl',
 		'communicator'
 	],
-	function( Backbone, RegisterTmpl, Communicator ) {
+	function( Backbone, ForgotpwTmpl, Communicator ) {
 
 		/* Return a ItemView class definition */
 		return Backbone.Marionette.ItemView.extend({
 		
 			initialize: function() {
-				console.log("initialize a Register ItemView");
+				console.log("initialize a Forgotpw ItemView");
 				this.listenTo( this.model, "invalid", this.handleError, this);
 			},
 			
 	    	template: {
 				type: 'handlebars',
-				template: RegisterTmpl
+				template: ForgotpwTmpl
 			},
 
 	    	/* ui selector cache */
@@ -28,13 +28,19 @@
 
 			/* Ui events hash */
 			events: {
+				"click .account-signup": "handleAccountSignUp",
 				"click .account-login": "handleAccountLogin",
-				"click .account-forgotpw": "handleForgotPw",
-				"click button[type='submit']": "handleLoginSubmit"
+				"click button[type='submit']": "handleForgotPwSubmit"
 			},
 
 			/* on render callback */
 			onRender: function() {},
+
+			handleAccountSignUp: function( e ) {
+				e.preventDefault();
+				e.stopPropagation();
+				Communicator.command.execute( "APP:ACCOUNT:REGISTER" );
+			},
 
 			handleAccountLogin: function( e ) {
 				e.preventDefault();
@@ -42,19 +48,13 @@
 				Communicator.command.execute( "APP:ACCOUNT:LOGIN" );
 			},
 
-			handleForgotPw: function( e ) {
+			handleForgotPwSubmit: function( e ) {
 				e.preventDefault();
-				e.stopPropagation();
-				Communicator.command.execute( "APP:ACCOUNT:FORGOTPW" );
-			},
-
-			handleLoginSubmit: function( e ){
-				e.preventDefault();
-				this.model.register( Backbone.Syphon.serialize(this) );
+				this.model.forgotPw( Backbone.Syphon.serialize( this ) );
 			},
 
 			handleError: function( model, errorObject, options ) {
-				console.log("Register: handleError");
+				console.log("Login: handleError");
 
 				this.templateHelpers = errorObject;
 				this.render();

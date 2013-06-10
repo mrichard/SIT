@@ -47,11 +47,19 @@
 				console.log( "Account validate");
 				console.log(arguments);
 
+				var invalidString = "";
+
 				var invalidInputs = _.filter( attributes, function(value, key, list) {
 					// if passed a specific list of attributes to validate
 					if( options.toValidate ) {
 						// if attribute is in the toValidate list and it has no input then it's invalid
-						return (_.contains(options.toValidate, key) && !value);
+						if( _.contains(options.toValidate, key) && !value ){
+							invalidString = invalidString + key + ", "
+							return true;
+						}
+						else {
+							return false;
+						}
 					} 
 					// else just validate all
 					else {
@@ -60,7 +68,7 @@
 				}).length;
 
 				if( invalidInputs > 0 ){
-					return _.extend({ error: "Please fill in all inputs" }, _.clone(attributes) );
+					return _.extend({ error: "Please fill in inputs: " + invalidString.substring( 0, (invalidString.length-2) ) }, _.clone(attributes) );
 				}
 			},
 
@@ -83,6 +91,18 @@
 					url: 'api/v1/register',
 					success: function( model, resp, options ) {
 						console.log('custom register success handler');
+						console.log( model );
+					}
+				});
+			},
+
+			forgotPw: function( inputs ) {
+				this.promise = this.save( inputs, {
+					wait: true,
+					toValidate: ['email'],
+					url: 'api/v1/forgotpw',
+					success: function( model, resp, options ) {
+						console.log('custom forgotpw success handler');
 						console.log( model );
 					}
 				});

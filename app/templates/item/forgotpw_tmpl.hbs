@@ -1,0 +1,27 @@
+<div class="modal-header">
+	<button type="button" class="close">&times;</button>
+	<h3>FORGOT PASSWORD</h3>
+</div>
+
+<form class="form-horizontal">
+
+	<div class="modal-body">
+		{{> tmpl_errorMessage }}
+
+		<p>Please enter your email below. We'll send you a link to reset your password.</p>
+
+		<div class="control-group {{#unless email}}{{#if error}}error{{/if}}{{/unless}}">
+			<label class="control-label" for="inputStartDate">EMAIL:</label>
+			<div class="controls">
+				<input type="text" id="inputEmail" name="email" class="" value="{{email}}" placeholder="Enter email address" />
+			</div>
+		</div>
+
+		<p class="text-right" style="margin-right:10px;">Not a member? <a href="#" class="account-signup">Sign up</a></p>
+		<p class="text-right" style="margin-right:10px;">Already registered? <a href="#" class="account-login">Login</a></p>
+	</div>
+
+	<div class="modal-footer">
+		<button type="submit"  name="submit-action" class="btn btn-primary" data-loading-text="Processing...">SEND EMAIL</button>
+	</div>
+</form>
