@@ -49,6 +49,10 @@ The request gets a number of cool properties, like
 				---> register
 
 
-2. Change account to a module. It will handle all views to do with managing account
+2. Add close button binding to modal views
+
+3. Move error messaging to constants
+
+
 
 
