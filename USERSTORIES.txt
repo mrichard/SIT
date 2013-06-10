@@ -32,3 +32,23 @@ The request gets a number of cool properties, like
 	request.files to get uploaded files.
 
 
+
+1. Forgot Password:
+	on click of login show forgot password link
+	on click of forgot pass word show forgot password modal
+	user submits user ID to receive email reminder
+
+
+	login 		---> register
+				---> forgot password
+
+	register	---> login
+				---> forgot password
+
+	forgot Pw 	---> login
+				---> register
+
+
+2. Change account to a module. It will handle all views to do with managing account
+
+

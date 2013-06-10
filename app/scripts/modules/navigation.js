@@ -50,7 +50,7 @@
 				var navBar = new NavBar({ model: account });
 				navBar.on( "NAV:ACCOUNT", this.handleAccount, this );
 				this.region.show( navBar );
-				account.isAuthenticated()
+				account.isAuthenticated();
 			},
 
 			handleAccount: function( action ) {
