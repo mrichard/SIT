@@ -28,6 +28,7 @@
 
 			/* Ui events hash */
 			events: {
+				"click .close": "handleClose",
 				"click .account-signup": "handleAccountSignUp",
 				"click .account-login": "handleAccountLogin",
 				"click button[type='submit']": "handleForgotPwSubmit"
@@ -59,6 +60,10 @@
 				this.templateHelpers = errorObject;
 				this.render();
 				this.templateHelpers = false;
+			},
+
+			handleClose: function() {
+				Communicator.command.execute( "APP:MODAL:HIDE" );
 			}
 		});
 

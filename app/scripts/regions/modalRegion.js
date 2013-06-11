@@ -43,7 +43,9 @@
 				this.$el.removeClass( styling ).modal('hide');
 
 				// trigger region close
-				this.close();
+				setTimeout( _.bind( function(){ 
+					this.close();
+				}, this), 400);
 			}
 
 		});
