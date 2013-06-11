@@ -28,7 +28,7 @@
 
 			/* Ui events hash */
 			events: {
-				"click .close": "handleClose",
+				"click .close-modal": "handleClose",
 				"click .account-signup": "handleAccountSignUp",
 				"click .account-login": "handleAccountLogin",
 				"click button[type='submit']": "handleForgotPwSubmit"
