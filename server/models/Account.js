@@ -55,9 +55,16 @@ module.exports = (function() {
 		});
 	};
 
+	var forgotPassword = function( email, callback ) {
+		Account.findOne({ email: email }, function( err, account ){
+			callback( err, account );
+		});
+	};
+
 	return {
 		login: login,
 		register: register,
+		forgotPassword: forgotPassword,
 		Account: Account
 	};
 })();

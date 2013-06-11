@@ -68,7 +68,7 @@
 				}).length;
 
 				if( invalidInputs > 0 ){
-					return _.extend({ error: "Please fill in inputs: " + invalidString.substring( 0, (invalidString.length-2) ) }, _.clone(attributes) );
+					return _.extend({ type: 'error', message: "Please fill in inputs: " + invalidString.substring( 0, (invalidString.length-2) ) }, _.clone(attributes) );
 				}
 			},
 
