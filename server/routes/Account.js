@@ -90,9 +90,13 @@ module.exports = {
 				res.json( 200, { type: 'error', message: "Cannot find email. Please register." });
 				return;
 			}
+			else if ( !account ) {
+				res.json( 200, { type: 'error', message: "Cannot find email. Please register." });
+				return;
+			}
 			else {
 				// email person and send message to user
-				mailer.mail( account.email, "SIT Password Reset", "Click here to reset your password: " + resetPwUrl, function( err ){ 
+				mailer.sendMail( account.email, "SIT Password Reset", "Click here to reset your password: " + resetPwUrl, function( error, response ){ 
 					if( err ) {
 						res.json( 200, { type: 'error', message: "Sorry, there was an error sending you an email. Try again." });
 						return;

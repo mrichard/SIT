@@ -46,7 +46,7 @@ app.get('/', function(req, res){
 app.post( '/api/v1/login', account.login );
 app.post( '/api/v1/register', account.register );
 app.get( '/api/v1/authenticated', account.authenticated );
-app.get( '/api/v1/forgotpw', account.forgotpw );
+app.post( '/api/v1/forgotpw', account.forgotpw );
 
 
 /*** START SERVER ***/

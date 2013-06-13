@@ -30,9 +30,9 @@
 
 			parse: function( response, options ) {
 
-				if( response.error ) {
+				if( response.type && response.message ) {
 					this.promise.complete( _.bind(function() {
-						this.trigger( "invalid", this, { error: response.error });
+						this.trigger( "invalid", this, response );
 						this.promise = null;
 					}, this) );
 
