@@ -128,6 +128,7 @@ module.exports = {
 			}
 			else {
 				// email person and send message to user
+				var resetPwUrl = resetPwUrl + '?account=' + account._id;
 				mailer.sendMail( account.email, "SIT Password Reset", "Click here to reset your password: " + resetPwUrl, function( error, response ){ 
 					if( err ) {
 						res.json( 200, { messaging: { type: 'error', message: "Sorry, there was an error sending you an email. Try again." } });
