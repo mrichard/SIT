@@ -15,7 +15,7 @@
 			},
 
 			defaults: {
-				loggedIn: false,
+				_loggedIn: false,
 				email: '',
 				password: '',
 				firstName: '',
@@ -30,17 +30,27 @@
 
 			parse: function( response, options ) {
 
-				if( response.type && response.message ) {
+				// check if there is any messaging in the response
+				if( response.messaging ) {
+
 					this.promise.complete( _.bind(function() {
-						this.trigger( "invalid", this, response );
+						this.trigger( "messaging", this, response.messaging );
 						this.promise = null;
 					}, this) );
 
-					return null;
 				}
 
-				response.loggedIn = true
-				return response;
+				// if account comes back
+				if( response.account ) {
+
+					if( !response.account.hasOwnProperty( '_loggedIn' ) ) {
+						response.account._loggedIn = true;
+					}
+
+					return response.account;
+				}
+
+				return null;
 			},
 
 			validate: function( attributes, options ) {
@@ -63,6 +73,9 @@
 					} 
 					// else just validate all
 					else {
+						if( key === '_loggedIn' ) {
+							return false;
+						}
 						return !value; 
 					}
 				}).length;
@@ -76,9 +89,17 @@
 				 this.promise = this.save( inputs, { 
 					wait: true, 
 					toValidate: ['email', 'password'],
-					url: '/api/v1/login',
+					url: '/api/v1/login'
+				});
+			},
+
+			logout: function() {
+				this.promise = this.save( {}, { 
+					wait: true, 
+					toValidate: [],
+					url: '/api/v1/logout',
 					success: function( model, resp, options ) {
-						console.log('custom login success handler');
+						console.log( "custom logout success");
 						console.log( model );
 					}
 				});
@@ -88,11 +109,7 @@
 				this.promise = this.save( inputs, {
 					wait: true,
 					toValidate: ['email', 'password', 'firstName', 'lastName', 'title'],
-					url: 'api/v1/register',
-					success: function( model, resp, options ) {
-						console.log('custom register success handler');
-						console.log( model );
-					}
+					url: 'api/v1/register'
 				});
 			},
 
@@ -100,11 +117,7 @@
 				this.promise = this.save( inputs, {
 					wait: true,
 					toValidate: ['email'],
-					url: 'api/v1/forgotpw',
-					success: function( model, resp, options ) {
-						console.log('custom forgotpw success handler');
-						console.log( model );
-					}
+					url: 'api/v1/forgotpw'
 				});
 			},
 			

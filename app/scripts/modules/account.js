@@ -9,10 +9,11 @@
 		'modules/config',
 		'models/account',
 		'views/item/login',
+		'views/item/logout',
 		'views/item/register',
 		'views/item/forgotpw'
 	],
-	function( Backbone, Communicator, moduleConfiguration, account, Login, Register, ForgotPw ) {
+	function( Backbone, Communicator, moduleConfiguration, account, Login, Logout, Register, ForgotPw ) {
 
 		var AccountController = Backbone.Marionette.Controller.extend({
 		
@@ -43,6 +44,7 @@
 
 			initAccount: function() {
 				Communicator.command.setHandler( "APP:ACCOUNT:LOGIN", this.handleAccountLogin, this );
+				Communicator.command.setHandler( "APP:ACCOUNT:LOGOUT", this.handleAccountLogout, this );
 				Communicator.command.setHandler( "APP:ACCOUNT:REGISTER", this.handleAccountRegister, this );
 				Communicator.command.setHandler( "APP:ACCOUNT:FORGOTPW", this.handleAccountForgotPw, this );
 			},
@@ -50,6 +52,11 @@
 			handleAccountLogin: function() {
 				var loginView = new Login({ model: account });
 				Communicator.command.execute( "APP:MODAL:SHOW", loginView );
+			},
+
+			handleAccountLogout: function() {
+				var logoutView = new Logout({ model: account });
+				Communicator.command.execute( "APP:MODAL:SHOW", logoutView );
 			},
 
 			handleAccountRegister: function() {

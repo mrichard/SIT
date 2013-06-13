@@ -15,7 +15,8 @@
 		
 			initialize: function() {
 				console.log("initialize a Login ItemView");
-				this.listenTo( this.model, "invalid", this.handleError, this);
+				this.listenTo( this.model, "invalid", this.displayMessaging, this);
+				this.listenTo( this.model, "messaging", this.handleMessaging, this);
 			},
 			
 	    	template: {
@@ -54,10 +55,20 @@
 				Communicator.command.execute( "APP:ACCOUNT:FORGOTPW" );
 			},
 
-			handleError: function( model, errorObject, options ) {
-				console.log("Login: handleError");
+			handleMessaging: function( model, messageObject, options ) {
+				if( messageObject.type === 'success' ) {
+					setTimeout( function(){
+						Communicator.command.execute( "APP:MODAL:HIDE" );
+					}, 2000);
+				}
 
-				this.templateHelpers = errorObject;
+				this.displayMessaging.apply( this, arguments );
+			},
+
+			displayMessaging: function( model, messageObject, options ) {
+				console.log("Register: displayMessaging");
+
+				this.templateHelpers = messageObject;
 				this.render();
 				this.templateHelpers = false;
 			},

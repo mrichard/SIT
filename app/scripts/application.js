@@ -12,6 +12,8 @@
 
 	function( Backbone, Communicator, moduleConfiguration ) {
 
+		Backbone.emulateHTTP = true;
+
 		var App = new Backbone.Marionette.Application();
 
 		/* Add initializers here */

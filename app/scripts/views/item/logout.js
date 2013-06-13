@@ -5,23 +5,23 @@
 
 	root.define([
 		'backbone',
-		'hbs!tmpl/item/forgotpw_tmpl',
+		'hbs!tmpl/item/logout_tmpl',
 		'communicator'
 	],
-	function( Backbone, ForgotpwTmpl, Communicator ) {
+	function( Backbone, LogoutTmpl, Communicator ) {
 
 		/* Return a ItemView class definition */
 		return Backbone.Marionette.ItemView.extend({
 		
 			initialize: function() {
-				console.log("initialize a Forgotpw ItemView");
+				console.log("initialize a Logout ItemView");
 				this.listenTo( this.model, "invalid", this.displayMessaging, this);
 				this.listenTo( this.model, "messaging", this.handleMessaging, this);
 			},
 			
 	    	template: {
 				type: 'handlebars',
-				template: ForgotpwTmpl
+				template: LogoutTmpl
 			},
 
 	    	/* ui selector cache */
@@ -30,29 +30,15 @@
 			/* Ui events hash */
 			events: {
 				"click .close-modal": "handleClose",
-				"click .account-signup": "handleAccountSignUp",
-				"click .account-login": "handleAccountLogin",
-				"click button[type='submit']": "handleForgotPwSubmit"
+				"click .logout-confirm": "handleLogout"
 			},
 
 			/* on render callback */
 			onRender: function() {},
 
-			handleAccountSignUp: function( e ) {
+			handleLogout: function( e ) {
 				e.preventDefault();
-				e.stopPropagation();
-				Communicator.command.execute( "APP:ACCOUNT:REGISTER" );
-			},
-
-			handleAccountLogin: function( e ) {
-				e.preventDefault();
-				e.stopPropagation();
-				Communicator.command.execute( "APP:ACCOUNT:LOGIN" );
-			},
-
-			handleForgotPwSubmit: function( e ) {
-				e.preventDefault();
-				this.model.forgotPw( Backbone.Syphon.serialize( this ) );
+				this.model.logout();
 			},
 
 			handleMessaging: function( model, messageObject, options ) {

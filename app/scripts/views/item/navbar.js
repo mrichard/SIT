@@ -38,6 +38,7 @@
 			events: {
 				"click .login": "handleLogin",
 				"click .register": "handleRegister",
+				"click .logout": "handleLogout",
 				"click .submit-talk": "handleSubmitTalk",
 				"click .account-pref": "handleAccountPref"
 			},
@@ -49,6 +50,12 @@
 				e.preventDefault();
 				console.log("handleLogin");
 				this.trigger( "NAV:ACCOUNT", "LOGIN" );
+			},
+
+			handleLogout: function( e ) {
+				e.preventDefault();
+				console.log("handleLogout");
+				this.trigger( "NAV:ACCOUNT", "LOGOUT" );
 			},
 
 			handleRegister: function( e ) {
