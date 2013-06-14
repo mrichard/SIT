@@ -92,7 +92,7 @@ module.exports = {
 				console.log( "register successful:" );
 				console.log( account );
 
-				res.session.account = account;
+				req.session.account = account;
 
 				res.json( 200, {
 					account: account,
@@ -107,7 +107,6 @@ module.exports = {
 		console.log( req.body );
 
 		var email = req.body.email;
-		var resetPwUrl = 'http://' + req.headers.host + '/resetpw';
 
 		if( !email ) {
 			res.json( 200, { messaging: { type: 'error', message: "Email not provided. Enter your email." } });
@@ -128,7 +127,8 @@ module.exports = {
 			}
 			else {
 				// email person and send message to user
-				var resetPwUrl = resetPwUrl + '?account=' + account._id;
+				var resetPwUrl = 'http://' + req.headers.host + '/resetpw?account=' + account._id;
+				
 				mailer.sendMail( account.email, "SIT Password Reset", "Click here to reset your password: " + resetPwUrl, function( error, response ){ 
 					if( err ) {
 						res.json( 200, { messaging: { type: 'error', message: "Sorry, there was an error sending you an email. Try again." } });
