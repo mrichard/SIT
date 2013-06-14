@@ -56,9 +56,7 @@ The request gets a number of cool properties, like
 
 
 ISSUES: 
-	Register account not working 100%. Get error.
-
-	Close modal after login or give messaging
+	Add feedback to button clicks
 
 
 

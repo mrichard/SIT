@@ -8,7 +8,7 @@
         baseUrl: "/scripts",
 
         /* starting point for application */
-        deps: ['backbone.marionette', 'bootstrap', 'marionette.handlebars', 'backbone.syphon', 'main'],
+        deps: ['backbone.marionette', 'marionette.handlebars', 'backbone.syphon', 'bootstrap', 'bootstrap-button', 'main'],
 
 
         shim: {
@@ -44,6 +44,7 @@
 
             /* alias the bootstrap js lib */
             bootstrap: 'vendor/bootstrap',
+            'bootstrap-button': 'vendor/bootstrap-button',
 
             /* Alias text.js for template loading and shortcut the templates dir to tmpl */
             text: '../bower_components/requirejs-text/text',

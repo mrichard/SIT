@@ -25,7 +25,9 @@
 			},
 
 	    	/* ui selector cache */
-	    	ui: {},
+	    	ui: {
+	    		feedbackButton: ".btn-feedback"
+	    	},
 
 			/* Ui events hash */
 			events: {
@@ -36,10 +38,14 @@
 			},
 
 			/* on render callback */
-			onRender: function() {},
+			onRender: function() {
+				this.ui.feedbackButton.buttonTB();
+			},
 
 			handleLoginSubmit: function( e ){
 				e.preventDefault();
+
+				this.ui.feedbackButton.buttonTB( 'loading' );
 				this.model.login( Backbone.Syphon.serialize( this ) );
 			},
 
