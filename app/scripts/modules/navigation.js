@@ -48,14 +48,23 @@
 				// on init nav bar check if we are authenticated
 				// then build the nav bar
 				var navBar = new NavBar({ model: account });
+
 				navBar.on( "NAV:ACCOUNT", this.handleAccount, this );
+				navBar.on( "NAV:TALK", this.handleTalk, this );
+
 				this.region.show( navBar );
+
 				account.isAuthenticated();
 			},
 
 			handleAccount: function( action ) {
 				console.log("handleAccount");
-				Communicator.command.execute( "APP:ACCOUNT:" + action);
+				Communicator.command.execute( "APP:ACCOUNT:" + action );
+			},
+
+			handleTalk: function( action ) {
+				console.log( "handleTalk" );
+				Communicator.command.execute( "APP:TALK:" + action );
 			}
 		});
 

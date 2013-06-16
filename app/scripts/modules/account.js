@@ -47,6 +47,8 @@
 				Communicator.command.setHandler( "APP:ACCOUNT:LOGOUT", this.handleAccountLogout, this );
 				Communicator.command.setHandler( "APP:ACCOUNT:REGISTER", this.handleAccountRegister, this );
 				Communicator.command.setHandler( "APP:ACCOUNT:FORGOTPW", this.handleAccountForgotPw, this );
+
+				Communicator.reqres.setHandler( "APP:ACCOUNT:ISLOGGEDIN", this.isLoggedIn, this );
 			},
 
 			handleAccountLogin: function() {
@@ -67,6 +69,10 @@
 			handleAccountForgotPw: function() {
 				var forgotPwView = new ForgotPw({ model: account });
 				Communicator.command.execute( "APP:MODAL:SHOW", forgotPwView );
+			},
+
+			isLoggedIn: function() {
+				return !!account.get( "_loggedIn" );
 			}
 		});
 

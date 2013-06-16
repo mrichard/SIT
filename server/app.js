@@ -5,13 +5,15 @@ var http = require('http');
 var path = require('path');
 var async = require('async');
 var hbs = require('express-hbs');
-var baucis = require('baucis');
+
 var faye = require('faye');
 var socketIO = require('socket.io');
 
 var dbSetup = require('./db/setup');
 var config = require('./config/config');
+
 var account = require('./routes/Account');
+var talk = require('./routes/Talk');
 
 var routeRoot = config.routeRoot;
 
@@ -43,12 +45,15 @@ app.get('/', function(req, res){
   res.sendfile( path.join( __dirname, '../app/index.html' ) );
 });
 
+// account
 app.post( '/api/v1/login', account.login );
 app.post( '/api/v1/logout', account.logout );
 app.post( '/api/v1/register', account.register );
 app.get( '/api/v1/authenticated', account.authenticated );
 app.post( '/api/v1/forgotpw', account.forgotpw );
 
+// talk
+talk.initRoutes( app );
 
 /*** START SERVER ***/
 var createServer = function() {

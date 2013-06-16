@@ -7,7 +7,8 @@
     root.define({
 	    navigation: "APP:START",
 	    modal: "APP:START",
-	    account: "APP:START"
+	    account: "APP:START",
+	    talk: "APP:START"
 	});
 
 }).call( this );

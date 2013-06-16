@@ -9,7 +9,7 @@
     "mongoose": "~3.6.11",
     "socket.io": "~0.9.14",
     "faye": "~0.8.9",
-    "baucis": "~0.5.1",
+    "baucis": "~0.5.2",
     "express-hbs": "~0.2.0",
     "crypto": "0.0.3",
     "nodemailer": "~0.4.4"

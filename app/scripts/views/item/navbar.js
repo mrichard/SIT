@@ -67,6 +67,7 @@
 			handleSubmitTalk: function( e ) {
 				e.preventDefault();
 				console.log("handleSubmitTalk");
+				this.trigger( "NAV:TALK", "NEW" );
 			},
 
 			handleAccountPref: function( e ) {

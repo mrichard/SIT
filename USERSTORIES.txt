@@ -33,30 +33,56 @@ The request gets a number of cool properties, like
 
 
 
-1. Forgot Password:
-	on click of login show forgot password link
-	on click of forgot pass word show forgot password modal
-	user submits user ID to receive email reminder
+1. SUBMIT TALK
+
+	- once a user is signed in the submit talk button shows
+
+	- on click of submit talk button, the submit talk form shows
+
+	- on submit of talk, crete document in mongo, created by is session user account
+
+	- send back success message, and close window
 
 
-	login 		---> register
-				---> forgot password
+	C.R.U.D
 
-	register	---> login
-				---> forgot password
+	Create - submit talk
 
-	forgot Pw 	---> login
-				---> register
+	Read - get all talks on start up
+
+	Update, Delete only on "my talks"
 
 
-2. Add close button binding to modal views
+STRUCTURE:
+
+	talk module
+
+	talks collection
+	talk model
+
+	talks composite view (table)
+	talk item view (table row)
+	talk emptyView 
+
+	talk new talk view (modal)
+
+
+2. My Talks area: list off talks you submitted
 
 3. Move error messaging to constants
 
 
 
-ISSUES: 
-	Add feedback to button clicks
+TO DO:
+	test out empty talk view
+
+	create new talk modal view
+
+	build sorting on columns
+
+	add up vote functionality (Update on talk) 
+
+	creat myTalks area
 
 
 
