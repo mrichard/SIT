@@ -62,10 +62,12 @@
 			},
 
 			handleMessaging: function( model, messageObject, options ) {
+
+				// if successful login plan delay success event
 				if( messageObject.type === 'success' ) {
-					setTimeout( function(){
-						Communicator.command.execute( "APP:MODAL:HIDE" );
-					}, 2000);
+					setTimeout( _.bind( function(){
+						this.trigger( "ACCOUNT:ACTION:SUCCESS" );
+					}, this ), 2000);
 				}
 
 				this.displayMessaging.apply( this, arguments );

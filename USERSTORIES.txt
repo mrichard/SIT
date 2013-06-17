@@ -74,9 +74,12 @@ STRUCTURE:
 
 
 TO DO:
-	test out empty talk view
 
 	create new talk modal view
+
+		fix wide modal form CSS
+
+		bring in Account info
 
 	build sorting on columns
 

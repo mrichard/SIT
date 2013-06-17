@@ -51,8 +51,13 @@
 				Communicator.reqres.setHandler( "APP:ACCOUNT:ISLOGGEDIN", this.isLoggedIn, this );
 			},
 
-			handleAccountLogin: function() {
+			handleAccountLogin: function( previousAction ) {
+
+				this.handlePreviousAction( previousAction );
+
 				var loginView = new Login({ model: account });
+				this.listenTo( loginView, "ACCOUNT:ACTION:SUCCESS", this.handleActionSuccess, this );
+
 				Communicator.command.execute( "APP:MODAL:SHOW", loginView );
 			},
 
@@ -73,6 +78,23 @@
 
 			isLoggedIn: function() {
 				return !!account.get( "_loggedIn" );
+			},
+
+			handlePreviousAction: function( previousAction ) {
+				this.previousAction = previousAction ? previousAction : null;
+			},
+
+			handleActionSuccess: function() {
+
+				// if a previous action was store before do that
+				if( this.previousAction ) {
+					this.previousAction.resolve();
+					this.previousAction = null;
+				}
+				// else run close Login
+				else {
+					Communicator.command.execute( "APP:MODAL:HIDE" );
+				}
 			}
 		});
 

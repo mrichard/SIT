@@ -24,11 +24,11 @@
 
 			showModal: function( view, styling ){
 				console.log("modal region SHOW");
-				styling = (styling) ? styling : ""; // not used
+
+				this.styling = (styling) ? styling : ""; 
+				this.$el.addClass( styling );
 
 				// show view in region
-
-	            console.log('show a region');
 				this.show(view);
 			},
 
@@ -36,14 +36,14 @@
 				this.$el.modal("show");
 			},
 
-			hideModal: function( styling ){
-				styling = (styling) ? styling : "";
-				
+			hideModal: function(){
 				// trigger bootstrap modal event
-				this.$el.removeClass( styling ).modal('hide');
+				this.$el.modal('hide');
 
 				// trigger region close
 				setTimeout( _.bind( function(){ 
+					this.$el.removeClass( this.styling );
+					this.styling = "";
 					this.close();
 				}, this), 400);
 			}

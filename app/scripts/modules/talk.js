@@ -8,10 +8,12 @@
 		'backbone',
 		'communicator',
 		'modules/config',
+		'models/talk',
 		'collections/talks',
-		'views/composite/talksMainList'
+		'views/composite/talksMainList',
+		'views/item/newTalk'
 	],
-	function( $, Backbone, Communicator, moduleConfiguration, Talks, TalksMainList ) {
+	function( $, Backbone, Communicator, moduleConfiguration, Talk, Talks, TalksMainListView, NewTalkView ) {
 
 		var Navigation = Backbone.Marionette.Controller.extend({
 		
@@ -65,7 +67,7 @@
 				console.log( arguments );
 
 				// build view
-				var talksMainList = new TalksMainList({ collection: this.talksCollection });
+				var talksMainList = new TalksMainListView({ collection: this.talksCollection });
 
 				// show in region
 				this.region.show( talksMainList );
@@ -74,17 +76,31 @@
 			handleNewTalk: function() {
 
 				// request login status
-				var loggedIn = Communicator.reqres.execute( "APP:ACCOUNT:ISLOGGEDIN" );
+				var loggedIn = Communicator.reqres.request( "APP:ACCOUNT:ISLOGGEDIN" );
 
 				// if logged in show talk modal
 				if( loggedIn ) {
-					// TODO
-					//var newTalkView = new newTalk({ model: talk });
-					//Communicator.command.execute( "APP:MODAL:SHOW", newTalkView );
+					// TODO: get account data
+
+					// create model
+					var newTalk = new Talk({
+						createdDate: (new Date()).toLocaleString()
+					});
+
+					//create view
+					var newTalkView = new NewTalkView({ 
+						collection: this.talksCollection, 
+						model: newTalk
+					});
+
+					// show view
+					Communicator.command.execute( "APP:MODAL:SHOW", newTalkView, "modal-wide" );
 				}
 				// else go to log in
 				else {
-					Communicator.command.execute( "APP:ACCOUNT:LOGIN" );
+					var defer = $.Deferred();
+					defer.done( this.handleNewTalk );
+					Communicator.command.execute( "APP:ACCOUNT:LOGIN", defer );
 				}
 				
 			}

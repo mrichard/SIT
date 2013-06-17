@@ -1,0 +1,49 @@
+<div class="modal-header">
+	<button type="button" class="close close-modal">&times;</button>
+	<h3>NEW TALK</h3>
+	<p>Enter new talk proposal details below.</p>
+</div>
+
+<form class="form-horizontal">
+
+	<div class="modal-body">
+		<div class="container">
+			<div class="row">
+				{{> tmpl_errorMessage }}
+			</div>
+
+			<div class="row">
+				<div class="span4">
+					<div class="well">
+						<dl class="dl-horizontal">
+							<dt>User:</dt><dd>{{fullName}}</dd>
+							<dt>Title:</dt><dd>{{userTitle}}</dd>
+							<dt>Create date:</dt><dd>{{createdDate}}</dd>
+							<dt>Votes:</dt><dd>{{votes}}</dd>
+						</dl>
+					</div>
+				</div>
+				<div class="span8">
+					<div class="control-group {{#unless title}}{{#if error}}error{{/if}}{{/unless}}">
+						<label class="control-label">TITLE:</label>
+						<div class="controls">
+							<input type="text" name="title" value="{{title}}" placeholder="Enter title" />
+						</div>
+					</div>
+
+					<div class="control-group {{#unless description}}{{#if error}}error{{/if}}{{/unless}}">
+						<label class="control-label">DESCRIPTION:</label>
+						<div class="controls">
+							<textarea type="description" name="description" value="{{description}}" placeholder="Enter description" rows="6"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<button type="submit"  name="submit-action" class="btn btn-primary btn-feedback" data-loading-text="Processing...">SUBMIT</button>
+	</div>
+</form>

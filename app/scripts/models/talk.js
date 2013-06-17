@@ -20,7 +20,7 @@
 					createdBy: '',
 					createdDate: '', // object { type: Date, default: Date.now }
 					comments: '', // array [{ body: String, date: Date, createdBy: String }]
-					meta: '' // object { votes: Number }
+					votes: 0 // object { votes: Number }
 				},
 
 		});

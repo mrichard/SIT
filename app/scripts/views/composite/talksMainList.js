@@ -17,6 +17,8 @@
 			initialize: function() {
 				console.log("initialize a TalksMainList CompositeView");
 			},
+
+			className: 'talks-mainlist',
 			
 	    	itemView: TalkMainItem,
 
