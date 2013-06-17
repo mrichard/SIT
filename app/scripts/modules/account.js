@@ -49,6 +49,7 @@
 				Communicator.command.setHandler( "APP:ACCOUNT:FORGOTPW", this.handleAccountForgotPw, this );
 
 				Communicator.reqres.setHandler( "APP:ACCOUNT:ISLOGGEDIN", this.isLoggedIn, this );
+				Communicator.reqres.setHandler( "APP:ACCOUNT:USER", this.getUser, this );
 			},
 
 			handleAccountLogin: function( previousAction ) {
@@ -78,6 +79,15 @@
 
 			isLoggedIn: function() {
 				return !!account.get( "_loggedIn" );
+			},
+
+			getUser: function() {
+				var fullName = account.get( "firstName" ) + " " + account.get( "lastName" );
+				var userTitle = account.get( "title" );
+				return {
+					fullName: fullName,
+					userTitle: userTitle
+				};
 			},
 
 			handlePreviousAction: function( previousAction ) {

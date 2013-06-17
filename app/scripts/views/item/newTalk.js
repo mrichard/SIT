@@ -13,9 +13,10 @@
 		/* Return a ItemView class definition */
 		return Backbone.Marionette.ItemView.extend({
 		
-			initialize: function() {
+			initialize: function( options ) {
 				console.log("initialize a NewTalk ItemView");
-				console.log( this.collection );
+				console.log( options );
+				this.templateHelpers = options.userData;
 			},
 			
 	    	template: {

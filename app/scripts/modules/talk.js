@@ -81,6 +81,7 @@
 				// if logged in show talk modal
 				if( loggedIn ) {
 					// TODO: get account data
+					var userData = Communicator.reqres.request( "APP:ACCOUNT:USER");
 
 					// create model
 					var newTalk = new Talk({
@@ -90,7 +91,8 @@
 					//create view
 					var newTalkView = new NewTalkView({ 
 						collection: this.talksCollection, 
-						model: newTalk
+						model: newTalk,
+						userData: userData
 					});
 
 					// show view

@@ -14,6 +14,8 @@
 					console.log("initialize a Talk model");
 				},
 
+				idAttribute: '_id',
+
 				defaults: {
 					title: '',
 					description: '',
