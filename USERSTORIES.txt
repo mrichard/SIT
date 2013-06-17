@@ -77,9 +77,9 @@ TO DO:
 
 	create new talk modal view
 
-		fix wide modal form CSS
+		- new talk modal not highlighting inputs
 
-		bring in Account info
+		- check new talk submit to backend
 
 	build sorting on columns
 

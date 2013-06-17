@@ -80,7 +80,8 @@
 
 				// if logged in show talk modal
 				if( loggedIn ) {
-					// TODO: get account data
+
+					// get account data
 					var userData = Communicator.reqres.request( "APP:ACCOUNT:USER");
 
 					// create model

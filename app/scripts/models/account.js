@@ -64,7 +64,7 @@
 					if( options.toValidate ) {
 						// if attribute is in the toValidate list and it has no input then it's invalid
 						if( _.contains(options.toValidate, key) && !value ){
-							invalidString = invalidString + key + ", "
+							invalidString = invalidString + key + ", ";
 							return true;
 						}
 						else {
@@ -76,6 +76,8 @@
 						if( key === '_loggedIn' ) {
 							return false;
 						}
+
+						invalidString = invalidString + key + ", ";
 						return !value; 
 					}
 				}).length;

@@ -16,7 +16,10 @@
 			initialize: function( options ) {
 				console.log("initialize a NewTalk ItemView");
 				console.log( options );
-				this.templateHelpers = options.userData;
+				this.templateHelpers = _.extend( this.templateHelpers || {}, options.userData );
+
+				this.listenTo( this.model, "invalid", this.displayMessaging, this);
+				this.listenTo( this.model, "messaging", this.handleMessaging, this);
 			},
 			
 	    	template: {
@@ -47,8 +50,41 @@
 
 				this.ui.feedbackButton.buttonTB( 'loading' );
 				var data = Backbone.Syphon.serialize( this );
-
 				console.log( data );
+
+				// set the data on the model and validate it
+				var setSuccess = this.model.set( data, { 
+					toValidate: [ 'title', 'description' ],
+					validate: true 
+				});
+
+				// if a successful set then send to server. Note no validation required.
+				if( setSuccess ) {
+					this.collection.create( this.model, {
+						wait: true,
+						toValidate: [],
+						success: function() {
+							console.log( "custom success for handleTalkSubmit" );
+						}
+					});
+				}
+			},
+
+			handleMessaging: function( model, messageObject, options ) {
+
+				// if successful login plan delay success event
+				if( messageObject.type === 'success' ) {
+					console.log( "new talk messaging success" );
+				}
+
+				this.displayMessaging.apply( this, arguments );
+			},
+
+			displayMessaging: function( model, messageObject, options ) {
+				console.log("Register: displayMessaging");
+
+				this.templateHelpers = _.extend( this.templateHelpers || {}, messageObject );
+				this.render();
 			},
 
 			handleClose: function() {
