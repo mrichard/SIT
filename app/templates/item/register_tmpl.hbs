@@ -7,35 +7,35 @@
 
 	<div class="modal-body">
 		{{> tmpl_errorMessage }}
-		<div class="control-group {{#unless email}}{{#if error}}error{{/if}}{{/unless}}">
+		<div class="control-group {{#unless email}}{{#if type}}{{type}}{{/if}}{{/unless}}">
 			<label class="control-label">EMAIL:</label>
 			<div class="controls">
 				<input type="text" name="email" class="" value="{{email}}" placeholder="Enter email address" />
 			</div>
 		</div>
 
-		<div class="control-group {{#unless password}}{{#if error}}error{{/if}}{{/unless}}">
+		<div class="control-group {{#unless password}}{{#if type}}{{type}}{{/if}}{{/unless}}">
 			<label class="control-label">PASSWORD:</label>
 			<div class="controls">
 				<input type="password" name="password" class="" value="" placeholder="Enter password" />
 			</div>
 		</div>
 
-		<div class="control-group {{#unless firstName}}{{#if error}}error{{/if}}{{/unless}}">
+		<div class="control-group {{#unless firstName}}{{#if type}}{{type}}{{/if}}{{/unless}}">
 			<label class="control-label">FIRSTNAME:</label>
 			<div class="controls">
 				<input type="text" name="firstName" class="" value="{{firstName}}" placeholder="Enter first name" />
 			</div>
 		</div>
 
-		<div class="control-group {{#unless lastName}}{{#if error}}error{{/if}}{{/unless}}">
+		<div class="control-group {{#unless lastName}}{{#if type}}{{type}}{{/if}}{{/unless}}">
 			<label class="control-label">LASTNAME:</label>
 			<div class="controls">
 				<input type="text" name="lastName" class="" value="{{lastName}}" placeholder="Enter last name" />
 			</div>
 		</div>
 
-		<div class="control-group {{#unless title}}{{#if error}}error{{/if}}{{/unless}}">
+		<div class="control-group {{#unless title}}{{#if type}}{{type}}{{/if}}{{/unless}}">
 			<label class="control-label">TITLE:</label>
 			<div class="controls">
 				<input type="text" name="title" class="" value="{{title}}" placeholder="Enter title" />

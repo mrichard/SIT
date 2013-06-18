@@ -88,4 +88,9 @@ TO DO:
 	creat myTalks area
 
 
+ISSUES:
+
+	modal stays wide after a wide one is requested
+
+
 

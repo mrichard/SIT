@@ -7,14 +7,14 @@
 
 	<div class="modal-body">
 		{{> tmpl_errorMessage }}
-		<div class="control-group {{#unless email}}{{#if error}}error{{/if}}{{/unless}}">
+		<div class="control-group {{#unless email}}{{#if type}}{{type}}{{/if}}{{/unless}}">
 			<label class="control-label" for="inputStartDate">EMAIL:</label>
 			<div class="controls">
 				<input type="text" id="inputEmail" name="email" class="" value="{{email}}" placeholder="Enter email address" />
 			</div>
 		</div>
 
-		<div class="control-group {{#unless password}}{{#if error}}error{{/if}}{{/unless}}">
+		<div class="control-group {{#unless password}}{{#if type}}{{type}}{{/if}}{{/unless}}">
 			<label class="control-label" for="inputEndDate">PASSWORD:</label>
 			<div class="controls">
 				<input type="password" id="inputPassword" name="password" class="" value="{{password}}" placeholder="Enter password" />
