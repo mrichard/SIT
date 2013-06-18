@@ -19,7 +19,9 @@
 
 			initialize: function () {
 				this.$el = this.getEl(this.el);
-				this.$el.on("hidden", this.close);
+
+				// bootsrap cleanup after hidden event
+				this.$el.on( "hidden", _.bind(this.cleanUp, this) );
 			},
 
 			showModal: function( view, styling ){
@@ -33,19 +35,19 @@
 			},
 
 			onShow: function() {
+				// bootstrap show
 				this.$el.modal("show");
 			},
 
 			hideModal: function(){
-				// trigger bootstrap modal event
+				// bootstrap hide
 				this.$el.modal('hide');
+			},
 
-				// trigger region close
-				setTimeout( _.bind( function(){ 
-					this.$el.removeClass( this.styling );
-					this.styling = "";
-					this.close();
-				}, this), 400);
+			cleanUp: function() {
+				this.$el.removeClass( this.styling );
+				this.styling = "";
+				this.close();
 			}
 
 		});
