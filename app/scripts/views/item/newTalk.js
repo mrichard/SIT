@@ -65,6 +65,7 @@
 						toValidate: [],
 						success: function() {
 							console.log( "custom success for handleTalkSubmit" );
+							console.log( arguments );
 						}
 					});
 				}
