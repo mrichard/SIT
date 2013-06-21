@@ -52,7 +52,7 @@
 			},
 
 			displayMessaging: function( model, messageObject, options ) {
-				console.log("Register: displayMessaging");
+				console.log("Logout: displayMessaging");
 
 				this.templateHelpers = messageObject;
 				this.render();

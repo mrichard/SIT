@@ -48,6 +48,9 @@
 			handleTalkSubmit: function( e ) {
 				e.preventDefault();
 
+				console.log( "handleTalkSubmit" );
+				console.log( this );
+
 				this.ui.feedbackButton.buttonTB( 'loading' );
 				var data = Backbone.Syphon.serialize( this );
 				console.log( data );
@@ -76,6 +79,9 @@
 				// if successful login plan delay success event
 				if( messageObject.type === 'success' ) {
 					console.log( "new talk messaging success" );
+					setTimeout( function(){
+						Communicator.command.execute( "APP:MODAL:HIDE" );
+					}, 2000);
 				}
 
 				this.displayMessaging.apply( this, arguments );

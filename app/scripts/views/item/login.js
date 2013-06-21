@@ -74,7 +74,7 @@
 			},
 
 			displayMessaging: function( model, messageObject, options ) {
-				console.log("Register: displayMessaging");
+				console.log("Login: displayMessaging");
 
 				this.templateHelpers = messageObject;
 				this.render();

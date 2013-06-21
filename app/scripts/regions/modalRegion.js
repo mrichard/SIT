@@ -22,6 +22,7 @@
 
 				// bootsrap cleanup after hidden event
 				this.$el.on( "hidden", _.bind(this.cleanUp, this) );
+				this.$el.on( "shown", _.bind( this.focusIt, this) );
 			},
 
 			showModal: function( view, styling ){
@@ -48,6 +49,11 @@
 				this.$el.removeClass( this.styling );
 				this.styling = "";
 				this.close();
+			},
+
+			focusIt: function() {
+				console.log( this );
+				this.$el.find('input').eq(0).focus();
 			}
 
 		});

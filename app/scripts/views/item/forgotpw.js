@@ -72,7 +72,7 @@
 			},
 
 			displayMessaging: function( model, messageObject, options ) {
-				console.log("Register: displayMessaging");
+				console.log("forgotPW: displayMessaging");
 
 				this.templateHelpers = messageObject;
 				this.render();

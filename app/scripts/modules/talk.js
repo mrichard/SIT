@@ -15,7 +15,7 @@
 	],
 	function( $, Backbone, Communicator, moduleConfiguration, Talk, Talks, TalksMainListView, NewTalkView ) {
 
-		var Navigation = Backbone.Marionette.Controller.extend({
+		var TalkModule = Backbone.Marionette.Controller.extend({
 		
 			initialize: function( options ) {
 				console.log("initialize a talk Controller");
@@ -74,12 +74,15 @@
 			},
 
 			handleNewTalk: function() {
+				console.log('handle new talk module handler');
 
 				// request login status
 				var loggedIn = Communicator.reqres.request( "APP:ACCOUNT:ISLOGGEDIN" );
 
+
 				// if logged in show talk modal
 				if( loggedIn ) {
+					console.log( "loggedIn" );
 
 					// get account data
 					var userData = Communicator.reqres.request( "APP:ACCOUNT:USER");
@@ -96,20 +99,23 @@
 						userData: userData
 					});
 
+					console.log( "NEWTALKVIEW  --->");
+					console.log( newTalkView );
+
 					// show view
 					Communicator.command.execute( "APP:MODAL:SHOW", newTalkView, "modal-wide" );
 				}
 				// else go to log in
 				else {
 					var defer = $.Deferred();
-					defer.done( this.handleNewTalk );
+					defer.done( _.bind(this.handleNewTalk, this) );
 					Communicator.command.execute( "APP:ACCOUNT:LOGIN", defer );
 				}
 				
 			}
 		});
 
-		return new Navigation();
+		return new TalkModule();
 
 	});
 }).call( this );

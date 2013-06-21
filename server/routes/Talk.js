@@ -10,8 +10,17 @@ module.exports = {
 		});
 
 		talkContoller.request( 'collection', 'post', function( request, response, next ) {
-			console.log( "baucis middle ware");
+			console.log( "baucis REQUEST middle ware START");
 			console.log( request.body );
+
+			request.body['createdBy'] = { 
+				id: request.session.account._id,
+				name: request.session.account.firstName + " " + request.session.account.lastName
+			};
+			request.body['createdDate'] = (new Date()).getTime();
+
+			console.log( request.body );
+			console.log( "baucis REQUEST middle ware END");
 
 			next();
 		});

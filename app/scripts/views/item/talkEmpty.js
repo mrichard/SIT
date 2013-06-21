@@ -37,6 +37,7 @@
 
 			handleTalksSubmit: function( e ) {
 				e.preventDefault();
+				e.stopPropagation();
 				Communicator.command.execute( "APP:TALK:NEW" );
 			}
 		});
