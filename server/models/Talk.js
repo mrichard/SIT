@@ -12,7 +12,11 @@ var TalkSchema = new mongoose.Schema({
     	name: String
     },
     createdDate: { type: Date, default: Date.now },
-    comments: [{ body: String, date: Date, createdBy: String }],
+    comments: [{ 
+        body: String, 
+        date: Date, 
+        createdBy: String 
+    }],
     votes: { type: Number, default: 0 }
 });
 

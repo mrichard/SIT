@@ -4,11 +4,12 @@
 	var root = this;
 
 	root.define([
+		'jquery',
 		'backbone',
 		'hbs!tmpl/item/newTalk_tmpl',
 		'communicator'
 	],
-	function( Backbone, NewTalkTmpl, Communicator ) {
+	function( $, Backbone, NewTalkTmpl, Communicator ) {
 
 		/* Return a ItemView class definition */
 		return Backbone.Marionette.ItemView.extend({
@@ -63,12 +64,15 @@
 
 				// if a successful set then send to server. Note no validation required.
 				if( setSuccess ) {
+					// store the promise for messaging purposes
+					this.model.promise = $.Deferred();
+
 					this.collection.create( this.model, {
 						wait: true,
 						toValidate: [],
-						success: function() {
+						success: function( model ) {
 							console.log( "custom success for handleTalkSubmit" );
-							console.log( arguments );
+							model.promise.resolve();
 						}
 					});
 				}

@@ -9,6 +9,7 @@ module.exports = {
 			singular: 'talk'
 		});
 
+		// modify request to add session user details
 		talkContoller.request( 'collection', 'post', function( request, response, next ) {
 			console.log( "baucis REQUEST middle ware START");
 			console.log( request.body );
@@ -23,6 +24,21 @@ module.exports = {
 			console.log( "baucis REQUEST middle ware END");
 
 			next();
+		});
+
+		// check the documents
+		talkContoller.documents( 'collection', 'post', function( request, response, next ){
+			console.log( "documents" );
+			console.log( request.baucis.documents );
+
+			if( request.baucis.documents ) {
+				request.baucis.documents = {
+					talk: request.baucis.documents,
+					messaging: { type: 'success', message: 'New talk has been created!' }
+				};
+
+			}
+			response.json( request.baucis.documents );
 		});
 
 		app.use( '/api/v1', baucis() );

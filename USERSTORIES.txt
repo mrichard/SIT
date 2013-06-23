@@ -75,15 +75,10 @@ STRUCTURE:
 
 TO DO:
 
-	create new talk modal view
+1. Add a delete talk button ( DELETE )
+2. Add a up vote button ( PUT )
+3. build sorting on columns - client side
 
-		- new talk modal not highlighting inputs
-
-		- check new talk submit to backend
-
-	build sorting on columns
-
-	add up vote functionality (Update on talk) 
 
 	creat myTalks area
 

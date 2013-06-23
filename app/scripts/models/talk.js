@@ -25,6 +25,28 @@
 					votes: 0 // object { votes: Number }
 				},
 
+				parse: function( response, options ) {
+
+					// check if there is any messaging in the response
+					if( response.messaging ) {
+
+						this.promise.always( _.bind(function() {
+							this.trigger( "messaging", this, response.messaging );
+							this.promise = null;
+						}, this) );
+					}
+
+					// if talk comes back
+					if( response.talk ) {
+						response.talk.createdDate = ( new Date(response.talk.createdDate) ).toLocaleFormat();
+						return response.talk;
+					}
+					else {
+						response.createdDate = ( new Date(response.createdDate) ).toLocaleFormat();
+						return response;
+					}
+				},
+
 				validate: function( attributes, options ) {
 					console.log( "Talk validate");
 					console.log(arguments);
