@@ -47,7 +47,8 @@ app.get('/', function(req, res){
 
 // account
 app.post( '/api/v1/login', account.login );
-app.post( '/api/v1/logout', account.logout );
+app.put( '/api/v1/login', account.login );
+app.put( '/api/v1/logout', account.logout );
 app.post( '/api/v1/register', account.register );
 app.get( '/api/v1/authenticated', account.authenticated );
 app.post( '/api/v1/forgotpw', account.forgotpw );

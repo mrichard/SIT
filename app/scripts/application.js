@@ -12,7 +12,7 @@
 
 	function( Backbone, Communicator, moduleConfiguration ) {
 
-		Backbone.emulateHTTP = true;
+		//Backbone.emulateHTTP = true;
 
 		var App = new Backbone.Marionette.Application();
 

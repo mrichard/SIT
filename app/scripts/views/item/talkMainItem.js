@@ -5,15 +5,17 @@
 
 	root.define([
 		'backbone',
-		'hbs!tmpl/item/talkMainItem_tmpl'
+		'hbs!tmpl/item/talkMainItem_tmpl',
+		'communicator'
 	],
-	function( Backbone, TalkMainItemTmpl  ) {
+	function( Backbone, TalkMainItemTmpl, Communicator ) {
 
 		/* Return a ItemView class definition */
 		return Backbone.Marionette.ItemView.extend({
 		
 			initialize: function() {
-				console.log("initialize a TalkMainItem ItemView");
+				this.listenTo( this.model, "change", this.render, this );
+				this.listenTo( this.model, "messaging", this.handleMessaging, this);
 			},
 			
 	    	template: {
@@ -27,10 +29,37 @@
 	    	ui: {},
 
 			/* Ui events hash */
-			events: {},
+			events: {
+				"click .upvote": "handleUpvote"
+			},
 
 			/* on render callback */
-			onRender: function() {}
+			onRender: function() {},
+
+			handleUpvote: function( e ) {
+				e.preventDefault();
+				e.stopPropagation();
+
+				var isLoggedIn = Communicator.reqres.request( "APP:ACCOUNT:ISLOGGEDIN" );
+
+				if( isLoggedIn ) {
+					var currentVotes = this.model.get("votes");
+					currentVotes.count++;
+
+					this.model.promise = this.model.save( currentVotes, { 
+						wait: true, 
+						toValidate: []
+					});
+				}
+				else {
+					alert( "you must be logged in to upvote!!");
+				}
+			},
+
+			handleMessaging: function( model, messageObject, options ) {
+				// TODO send this to messaging module
+				alert( messageObject.message );
+			}
 		});
 
 	});

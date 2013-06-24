@@ -29,7 +29,6 @@
 				template: TalksMainListTmpl
 			},
 	    	
-
 	    	/* ui selector cache */
 	    	ui: {},
 

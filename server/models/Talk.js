@@ -17,7 +17,10 @@ var TalkSchema = new mongoose.Schema({
         date: Date, 
         createdBy: String 
     }],
-    votes: { type: Number, default: 0 }
+    votes: {
+        count: { type: Number, default: 0 },
+        users: [String]
+    }
 });
 
 var Talk = mongoose.model( 'talk', TalkSchema );

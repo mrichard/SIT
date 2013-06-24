@@ -76,11 +76,11 @@ STRUCTURE:
 TO DO:
 
 1. Add a delete talk button ( DELETE )
-2. Add a up vote button ( PUT )
-3. build sorting on columns - client side
+2. Create a mytalks area
+4. build sorting on columns - client side
+5. build a messages module
+6. move server messaging to contants file
 
-
-	creat myTalks area
 
 
 

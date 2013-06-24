@@ -11,7 +11,6 @@
 			/* Return a model class definition */
 			return Backbone.Model.extend({
 				initialize: function() {
-					console.log("initialize a Talk model");
 				},
 
 				idAttribute: '_id',
@@ -22,14 +21,16 @@
 					createdBy: '',
 					createdDate: '', // object { type: Date, default: Date.now }
 					comments: '', // array [{ body: String, date: Date, createdBy: String }]
-					votes: 0 // object { votes: Number }
+					votes: {
+						count: 0
+					} // object { votes: Number }
 				},
 
 				parse: function( response, options ) {
 
 					// check if there is any messaging in the response
 					if( response.messaging ) {
-
+						
 						this.promise.always( _.bind(function() {
 							this.trigger( "messaging", this, response.messaging );
 							this.promise = null;
@@ -77,6 +78,8 @@
 						}
 
 					}).length;
+
+					console.log( "invalidInputs === " + invalidInputs );
 
 					if( invalidInputs > 0 ){
 						return _.extend({ type: 'error', message: "Please fill in inputs: " + invalidString.substring( 0, (invalidString.length-2) ) }, _.clone(attributes) );
