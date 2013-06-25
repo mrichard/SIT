@@ -16,6 +16,8 @@
 		
 			initialize: function() {
 				console.log("initialize a TalksMainList CompositeView");
+
+				this.listenTo( this.collection, "sort", this.render,  this );
 			},
 
 			className: 'talks-mainlist',
@@ -36,10 +38,19 @@
 	    	itemViewContainer: "tbody",
 
 			/* Ui events hash */
-			events: {},
+			events: {
+				"click .talk-header": "handleSortAction"
+			},
 
 			/* on render callback */
-			onRender: function() {}
+			onRender: function() {},
+
+			handleSortAction: function( e ){
+				e.preventDefault();
+
+				this.collection.comparatorKey = $( e.currentTarget ).data("key");
+				this.collection.sort();
+			}
 		});
 
 	});
