@@ -62,7 +62,7 @@
 					});
 				}
 				else {
-					alert( "you must be logged in to upvote!!");
+					alert( "you must be logged in to upvote!!" );
 				}
 			},
 
@@ -72,6 +72,7 @@
 
 			handleDeleteTalk: function() {
 				console.log( "handleDeleteTalk" );
+				this.model.destroyTalk();
 			},
 
 			handleMessaging: function( model, messageObject, options ) {

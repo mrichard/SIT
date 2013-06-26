@@ -116,7 +116,9 @@
 				this.account.set({ _mine: false });
 
 				//fetch ALL talks
-				this.talksCollection.fetch();
+				this.talksCollection.fetch({
+    				reset: true
+    			});
 			},
 
 			handleMyTalks: function() {
@@ -128,7 +130,10 @@
 				console.log( this.account );
 
 				//fetch MY talks "mine"
-				this.talksCollection.fetch( "mine" );
+				this.talksCollection.fetch({
+    				reset: true,
+    				data: { mine: true }
+    			});
 			}
 		});
 

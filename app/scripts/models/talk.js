@@ -4,9 +4,10 @@
 	var root = this;
 
 	root.define([
-		'backbone'
+		'backbone',
+		'communicator'
 		], 
-		function( Backbone ) {
+		function( Backbone, Communicator ) {
 
 			/* Return a model class definition */
 			return Backbone.Model.extend({
@@ -84,6 +85,16 @@
 					if( invalidInputs > 0 ){
 						return _.extend({ type: 'error', message: "Please fill in inputs: " + invalidString.substring( 0, (invalidString.length-2) ) }, _.clone(attributes) );
 					}
+				},
+
+				destroyTalk: function() {
+					// destroy the model and then look for messagin in the response
+					this.destroy({ 
+						wait: true
+					}).always( function( resp ){
+						console.log("destroy: always");
+						Communicator.mediator.trigger( "APP:MESSAGING", resp.messaging )
+					});
 				}
 
 		});

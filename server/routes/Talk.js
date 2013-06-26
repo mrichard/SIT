@@ -96,6 +96,19 @@ module.exports = {
 			response.json( request.baucis.documents );
 		});
 
+
+		// delete action
+		talkContoller.documents( 'instance', 'del', function( request, response, next ){
+			console.log( "DELETE: documents" );
+
+			request.baucis.documents = {
+				messaging: { type: 'success', message: 'Talk successfully deleted!' }
+			};
+
+			response.json( request.baucis.documents );
+		});
+
+
 		app.use( '/api/v1', baucis() );
 	}
 	

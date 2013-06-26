@@ -13,13 +13,13 @@
 		var Navigation = Backbone.Marionette.Controller.extend({
 		
 			initialize: function( options ) {
-				console.log("initialize a MODULE_NAME Controller");
+				console.log("initialize a Messaging Controller");
 
 				// module name
-				this._name = "MODULE_NAME";
+				this._name = "messaging";
 
 				// create a region
-				this.region = Communicator.reqres.request( "RM:addRegion", _.uniqueId('region_'), 'REGION_ID' );
+				this.region = Communicator.reqres.request( "RM:addRegion", _.uniqueId('region_'), '#messages-region' );
 
 				// create a module
 				this.submodules = {};
@@ -36,8 +36,23 @@
 				MyModule.controller = Controller;
 
 				MyModule.addInitializer(function(){
-				    console.log("Starting MODULE_NAME module !!");
+				    console.log("Starting messaging module !!");
+				    this.controller.initMessaging();
 				});
+			},
+
+			initMessaging: function() {
+				// need message model
+
+				// need message view
+
+				// set up events API
+				Communicator.mediator.on( "APP:MESSAGING", this.handleMessaging, this );
+			},
+
+			handleMessaging: function( messageObject ) {
+				// set the model with the latest messagingObject
+				// possibly show a new view in the region
 			}
 		});
 

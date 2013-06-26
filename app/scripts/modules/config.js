@@ -8,7 +8,8 @@
 	    navigation: "APP:START",
 	    modal: "APP:START",
 	    account: "APP:START",
-	    talk: "APP:START"
+	    talk: "APP:START",
+	    messaging: "APP:START"
 	});
 
 }).call( this );

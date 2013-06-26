@@ -18,9 +18,9 @@
 	    		model: Talk,
 
 	    		url: function() {
-	    			if( this.fetchType ) {
+	    			/*if( this.fetchType ) {
 	    				return '/api/v1/talks/' + '?mine=true';
-	    			}
+	    			}*/
 
 	    			return '/api/v1/talks/';
 	    		},
@@ -45,14 +45,6 @@
 	    			else {
 	    				return compareValue
 	    			}
-	    		},
-
-	    		fetch: function( type ) {
-	    			// set the fetch type
-	    			this.fetchType = type ? type : null;
-
-	    			// call fetch
-	    			Backbone.Collection.prototype.fetch.call(this, {reset: true});
 	    		}
 	    		
 	  		});
