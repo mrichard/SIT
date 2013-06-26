@@ -6,9 +6,11 @@
 	root.define([
 		'backbone',
 		'communicator',
-		'modules/config'
+		'modules/config',
+		'models/message',
+		'views/item/message'
 	],
-	function( Backbone, Communicator, moduleConfiguration ) {
+	function( Backbone, Communicator, moduleConfiguration, Message, MessageView ) {
 
 		var Navigation = Backbone.Marionette.Controller.extend({
 		
@@ -42,17 +44,20 @@
 			},
 
 			initMessaging: function() {
-				// need message model
-
-				// need message view
+				//message model
+				this.messageModel = new Message();
 
 				// set up events API
 				Communicator.mediator.on( "APP:MESSAGING", this.handleMessaging, this );
 			},
 
 			handleMessaging: function( messageObject ) {
-				// set the model with the latest messagingObject
-				// possibly show a new view in the region
+				console.log( "handleMessaging" );
+				console.log( messageObject );
+
+				this.messageModel.set( messageObject );
+
+				this.region.show( new MessageView({ model: this.messageModel }) );
 			}
 		});
 
