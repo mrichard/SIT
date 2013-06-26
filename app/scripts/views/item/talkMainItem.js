@@ -13,9 +13,17 @@
 		/* Return a ItemView class definition */
 		return Backbone.Marionette.ItemView.extend({
 		
-			initialize: function() {
+			initialize: function( options ) {
 				this.listenTo( this.model, "change", this.render, this );
 				this.listenTo( this.model, "messaging", this.handleMessaging, this);
+
+				console.log( "talkMinItem init: ");
+				console.log( options );
+
+				// store data that comes fro the composite view, to be used in the templates
+				this.templateHelpers = {
+					displayModControls: options.displayModControls
+				};
 			},
 			
 	    	template: {
@@ -30,7 +38,9 @@
 
 			/* Ui events hash */
 			events: {
-				"click .upvote": "handleUpvote"
+				"click .upvote": "handleUpvote",
+				"click .talk-edit": "handleEditTalk",
+				"click .talk-delete": "handleDeleteTalk"
 			},
 
 			/* on render callback */
@@ -54,6 +64,14 @@
 				else {
 					alert( "you must be logged in to upvote!!");
 				}
+			},
+
+			handleEditTalk: function() {
+				console.log( "handleEditTalk" );
+			},
+
+			handleDeleteTalk: function() {
+				console.log( "handleDeleteTalk" );
 			},
 
 			handleMessaging: function( model, messageObject, options ) {

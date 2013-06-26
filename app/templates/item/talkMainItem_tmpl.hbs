@@ -3,3 +3,11 @@
 <td>{{createdBy.name}}</td>
 <td>{{createdDate}}</td>
 <td><a href="#" class="upvote">{{votes.count}}</a></td>
+{{#if displayModControls}}
+	<td>
+		<div class="btn-group">
+			<button class="btn btn-primary talk-edit">EDIT</button>
+			<button class="btn btn-primary talk-delete">DELETE</button>
+		</div>
+	</td>
+{{/if}}

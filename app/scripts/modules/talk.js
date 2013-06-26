@@ -113,7 +113,7 @@
 				console.log("TALK module: handleAllTalks");
 
 				// set talksConfig
-				this.account.set({ _mine: false }, { silent: true });
+				this.account.set({ _mine: false });
 
 				//fetch ALL talks
 				this.talksCollection.fetch();
@@ -123,12 +123,12 @@
 				console.log("TALK module: handleMyTalks");
 
 				// set talksConfig
-				this.account.set({ _mine: true }, { silent: true });
+				this.account.set({ _mine: true });
 
 				console.log( this.account );
 
 				//fetch MY talks "mine"
-				this.talksCollection.fetch( "mine" )
+				this.talksCollection.fetch( "mine" );
 			}
 		});
 

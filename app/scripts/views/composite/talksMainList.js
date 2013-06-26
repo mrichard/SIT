@@ -7,9 +7,10 @@
 		'backbone',
 		'views/item/talkMainItem',
 		'hbs!tmpl/composite/talksMainList_tmpl',
-		'views/item/talkEmpty'
+		'views/item/talkEmpty',
+		'communicator'
 	],
-	function( Backbone, TalkMainItem, TalksMainListTmpl, TalkEmpty ) {
+	function( Backbone, TalkMainItem, TalksMainListTmpl, TalkEmpty, Communicator ) {
 
 		/* Return a CompositeView class definition */
 		return Backbone.Marionette.CompositeView.extend({
@@ -17,7 +18,7 @@
 			initialize: function() {
 				console.log("initialize a TalksMainList CompositeView");
 
-				this.listenTo( this.collection, "sort", this.render,  this );
+				this.listenTo( this.collection, "sort reset", this.render,  this );
 			},
 
 			className: 'talks-mainlist',
@@ -30,6 +31,12 @@
 				type: 'handlebars',
 				template: TalksMainListTmpl
 			},
+
+			itemViewOptions: function() {
+				return {
+					displayModControls: this.model.get("_mine")
+				};
+			},
 	    	
 	    	/* ui selector cache */
 	    	ui: {},
@@ -39,7 +46,8 @@
 
 			/* Ui events hash */
 			events: {
-				"click .talk-header": "handleSortAction"
+				"click .talk-header": "handleSortAction",
+				"click .talk-all": "handleAllTalks"
 			},
 
 			/* on render callback */
@@ -50,6 +58,11 @@
 
 				this.collection.comparatorKey = $( e.currentTarget ).data("key");
 				this.collection.sort();
+			},
+
+			handleAllTalks: function() {
+				console.log( "handleAllTalks" );
+				Communicator.command.execute( "APP:TALK:ALL" );
 			}
 		});
 

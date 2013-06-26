@@ -4,13 +4,28 @@ var _ = require('underscore');
 
 var talkModel = Talk.Talk;
 
+// build Baucis routes
+var talkContoller = baucis.rest({
+	singular: 'talk'
+});
+
 module.exports = {
 	initRoutes: function( app ) {
-		// build Baucis routes
-		var talkContoller = baucis.rest({
-			singular: 'talk'
-		});
 
+		// check the get request and modify the query if needed
+		talkContoller.query( 'collection', 'get', function( request, response, next ) {
+			console.log("checking GET TALKS query");
+			console.log( request.query );
+
+			// if a request for my tlaks comes in then modify the baucis query
+			if( request.query.mine === 'true' ) {
+				console.log( "locating only " + request.session.account.firstName + " " + request.session.account.lastName + " talks.")
+				request.baucis.query.where('createdBy.id', request.session.account._id);
+			}
+
+			next();
+		});
+	
 		// modify request to add session user details
 		talkContoller.request( 'collection', 'post', function( request, response, next ) {
 			console.log( "baucis REQUEST middle ware START");
@@ -82,17 +97,6 @@ module.exports = {
 		});
 
 		app.use( '/api/v1', baucis() );
-
-		// TODO: need to add middle ware to append response messaging
-		// TODO: need to add middle ware to add user id 
-
-		// title: in data
-	    // description: in data
-	    // createdBy: in session
-	    // createdDate: // system now time
-	    // comments: 
-	    // votes: // 0
-
 	}
 	
 };

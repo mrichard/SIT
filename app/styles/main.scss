@@ -31,6 +31,18 @@ body > .container {
 		cursor: pointer;
 		text-align:center;
 	}
+
+	td:last-child {
+		text-align: center;
+	}
+
+	.my-talk-header {
+		padding: 10px 0 20px 0;
+		h3 { 
+			margin: 0;
+			line-height: 30px;
+		}
+	}
 }
 
 .talk-new {
