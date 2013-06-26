@@ -21,7 +21,8 @@
 				firstName: '',
 				lastName: '',
 				photoUrl: '',
-				title: ''
+				title: '',
+				_mine: false
 			},
 
 			idAttribute: '_id',

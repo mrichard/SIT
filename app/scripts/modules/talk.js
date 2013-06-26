@@ -11,9 +11,10 @@
 		'models/talk',
 		'collections/talks',
 		'views/composite/talksMainList',
-		'views/item/newTalk'
+		'views/item/newTalk',
+		'models/account'
 	],
-	function( $, Backbone, Communicator, moduleConfiguration, Talk, Talks, TalksMainListView, NewTalkView ) {
+	function( $, Backbone, Communicator, moduleConfiguration, Talk, Talks, TalksMainListView, NewTalkView, account ) {
 
 		var TalkModule = Backbone.Marionette.Controller.extend({
 		
@@ -48,29 +49,23 @@
 
 			initTalk: function() {
 				// create talks collection
-				this.createTalksCollection();
+				this.createDataStores();
 
 				// fetch talks then build main view
-				$.when( this.talksCollection.fetch() ).then( _.bind( this.buildTalksMainView, this ) );	
+				$.when( this.talksCollection.fetch() ).then( _.bind( function(){
+					this.region.show( new TalksMainListView({ collection: this.talksCollection, model: this.account }) );
+				}, this ) );	
 
 				// set up events API
 				Communicator.command.setHandler( "APP:TALK:NEW", this.handleNewTalk, this );
+				Communicator.command.setHandler( "APP:TALK:MINE", this.handleMyTalks, this );
+				Communicator.command.setHandler( "APP:TALK:ALL", this.handleAllTalks, this );
 			},
 
-			createTalksCollection: function() {
+			createDataStores: function() {
 				// create talks collection
 				this.talksCollection = new Talks();
-			},
-
-			buildTalksMainView: function( talks ) {
-				console.log( "buildTalksMainView" );
-				console.log( arguments );
-
-				// build view
-				var talksMainList = new TalksMainListView({ collection: this.talksCollection });
-
-				// show in region
-				this.region.show( talksMainList );
+				this.account = account;
 			},
 
 			handleNewTalk: function() {
@@ -112,6 +107,28 @@
 					Communicator.command.execute( "APP:ACCOUNT:LOGIN", defer );
 				}
 				
+			},
+
+			handleAllTalks: function() {
+				console.log("TALK module: handleAllTalks");
+
+				// set talksConfig
+				this.account.set({ _mine: false }, { silent: true });
+
+				//fetch ALL talks
+				this.talksCollection.fetch();
+			},
+
+			handleMyTalks: function() {
+				console.log("TALK module: handleMyTalks");
+
+				// set talksConfig
+				this.account.set({ _mine: true }, { silent: true });
+
+				console.log( this.account );
+
+				//fetch MY talks "mine"
+				this.talksCollection.fetch( "mine" )
 			}
 		});
 

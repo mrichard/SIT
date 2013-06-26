@@ -77,6 +77,21 @@ TO DO:
 
 1. Add a delete talk button ( DELETE )
 2. Create a mytalks area
+		ability to delete
+		ability to edit
+
+
+		HOW:
+
+			on click of nav bar: this.trigger( "NAV:TALK", "MINE" );
+			goes to modules which triggers "APP:TALK:MINE"
+
+		TODO:
+			build a "mine" fetch which needs an endpoint /api/v1/talks/mine
+			fix the styling for the personalized header
+			figure out a way to add delete and edit buttons to MY talks (use itemViewOptions perhaps)
+
+
 3. COULD TRY TO USE DEFERRED ACTION AND SEND TO LOGIN WHEN TRYING TO VOTE AND NOT LOGGED IN.
 		click upvote
 		if not logged in

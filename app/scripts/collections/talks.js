@@ -17,7 +17,9 @@
 
 	    		model: Talk,
 
-	    		url: '/api/v1/talks',
+	    		url: function() {
+	    			return '/api/v1/talks/' + this.fetchType;
+	    		},
 
 	    		comparator: function( talk ) {
 	    			console.log( this.comparatorKey );
@@ -39,6 +41,14 @@
 	    			else {
 	    				return compareValue
 	    			}
+	    		},
+
+	    		fetch: function( type ) {
+	    			// set the fetch type
+	    			this.fetchType = type ? type : '';
+
+	    			// call fetch
+	    			Backbone.Collection.prototype.fetch.apply(this, arguments);
 	    		}
 	    		
 	  		});

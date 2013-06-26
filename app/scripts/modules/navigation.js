@@ -63,7 +63,6 @@
 			},
 
 			handleTalk: function( action ) {
-				console.log( "handleTalk" );
 				Communicator.command.execute( "APP:TALK:" + action );
 			}
 		});

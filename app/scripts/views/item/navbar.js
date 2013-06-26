@@ -40,7 +40,7 @@
 				"click .register": "handleRegister",
 				"click .logout": "handleLogout",
 				"click .submit-talk": "handleSubmitTalk",
-				"click .account-pref": "handleAccountPref"
+				"click .my-talks": "handleMyTalks"
 			},
 
 			/* on render callback */
@@ -70,9 +70,9 @@
 				this.trigger( "NAV:TALK", "NEW" );
 			},
 
-			handleAccountPref: function( e ) {
+			handleMyTalks: function( e ) {
 				e.preventDefault();
-				console.log("handleAccountPref");
+				this.trigger( "NAV:TALK", "MINE" );
 			}
 		});
 
