@@ -5,9 +5,10 @@
 
 	root.define([
 		'backbone',
-		'hbs!tmpl/item/talk_tmpl'
+		'hbs!tmpl/item/talk_tmpl',
+		'communicator'
 	],
-	function( Backbone, TalkTmpl  ) {
+	function( Backbone, TalkTmpl, Communicator ) {
 
 		/* Return a ItemView class definition */
 		return Backbone.Marionette.ItemView.extend({
@@ -60,7 +61,7 @@
 				console.log( data );
 
 
-				this.promise = this.model.save( data, {
+				this.model.promise = this.model.save( data, {
 					wait: true,
 					toValidate: [ 'title', 'description' ]
 				});

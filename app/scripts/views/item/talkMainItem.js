@@ -77,7 +77,7 @@
 
 			handleMessaging: function( model, messageObject, options ) {
 				// TODO send this to messaging module
-				alert( messageObject.message );
+				Communicator.mediator.trigger( "APP:MESSAGING", messageObject );
 			}
 		});
 

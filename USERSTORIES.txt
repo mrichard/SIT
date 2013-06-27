@@ -80,10 +80,7 @@ TO DO:
 
 		TODO:
 			make messaging auto fade after 5 seconds
-			build edit functionality
-				- on click of edit
-				- bring the talk up in the NEW talk modal layer
-				- submit a put for the update
+			have context to messaging - sometimes show on modal, sometimes show on page level
 
 
 3. COULD TRY TO USE DEFERRED ACTION AND SEND TO LOGIN WHEN TRYING TO VOTE AND NOT LOGGED IN.

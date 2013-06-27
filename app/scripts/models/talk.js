@@ -93,7 +93,7 @@
 						wait: true
 					}).always( function( resp ){
 						console.log("destroy: always");
-						Communicator.mediator.trigger( "APP:MESSAGING", resp.messaging )
+						Communicator.mediator.trigger( "APP:MESSAGING", resp.messaging );
 					});
 				}
 

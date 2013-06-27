@@ -86,18 +86,29 @@ module.exports = {
 
 		});
 
+		
+		//modify the put to send a message with the object
+		talkContoller.documents( 'instance', 'put', function( request, response, next ){
+			request.baucis.documents = {
+				talk: request.baucis.documents,
+				messaging: { type: 'success', message: 'Edits has been saved!' }
+			};
+
+			response.json( request.baucis.documents );
+		});
+
 		// check the documents
 		talkContoller.documents( 'collection', 'post', function( request, response, next ){
 			console.log( "documents" );
 			console.log( request.baucis.documents );
 
-			if( request.baucis.documents ) {
-				request.baucis.documents = {
-					talk: request.baucis.documents,
-					messaging: { type: 'success', message: 'New talk has been created!' }
-				};
+		
+			request.baucis.documents = {
+				talk: request.baucis.documents,
+				messaging: { type: 'success', message: 'New talk has been created!' }
+			};
 
-			}
+			
 			response.json( request.baucis.documents );
 		});
 
