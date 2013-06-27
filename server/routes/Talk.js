@@ -56,22 +56,27 @@ module.exports = {
 			function( err, talk ) {
 				if( talk ) {
 					console.log( "talk found in mongo DB");
+					console.log( talk );
+					console.log( "request body is: " );
+					console.log( request.body );
 
 					// if the user has already upvoted then return and error message
-					var hasUpvoted = _.contains( talk.votes.users, sessionId );
+					var userInVotesList = _.contains( talk.votes.users, sessionId );
+					var votesIncreased = (request.body.votes.count > talk.votes.count);
 
-					if( hasUpvoted ) {
+					// if tring to upvote and already in users list then send error message
+					if( votesIncreased && userInVotesList ) {
+
 						console.log("hasUpvoted!!!!");
 						response.json({
 							talk: talk,
 							messaging: { type: 'error', message: 'You have already upvoted this talk!' }
 						});
-					}
-					else {
-						// else add the user id to the votes.users array to be saved in mongo
+					} else {
 						request.body.votes.users.push( sessionId );
 						next();
 					}
+	
 					
 				} else {
 					console.log( err );

@@ -56,7 +56,7 @@
 					var currentVotes = this.model.get("votes");
 					currentVotes.count++;
 
-					this.model.promise = this.model.save( currentVotes, { 
+					this.model.promise = this.model.save({ votes: currentVotes }, { 
 						wait: true, 
 						toValidate: []
 					});
@@ -67,7 +67,7 @@
 			},
 
 			handleEditTalk: function() {
-				console.log( "handleEditTalk" );
+				Communicator.command.execute( "APP:TALK:EDIT", this.model );
 			},
 
 			handleDeleteTalk: function() {

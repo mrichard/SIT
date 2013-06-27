@@ -4,18 +4,16 @@
 	var root = this;
 
 	root.define([
-		'jquery',
 		'backbone',
-		'hbs!tmpl/item/talk_tmpl',
-		'communicator'
+		'hbs!tmpl/item/talk_tmpl'
 	],
-	function( $, Backbone, TalkTmpl, Communicator ) {
+	function( Backbone, TalkTmpl  ) {
 
 		/* Return a ItemView class definition */
 		return Backbone.Marionette.ItemView.extend({
 		
 			initialize: function( options ) {
-				console.log("initialize a NewTalk ItemView");
+				console.log("initialize a EditTalk ItemView");
 				console.log( options );
 				this.templateHelpers = _.extend( this.templateHelpers || {}, options.userData );
 
@@ -29,8 +27,8 @@
 			},
 
 			templateHelpers: {
-				pageTitle: "NEW TALK",
-				pageDescription: "Enter new talk proposal details below."
+				pageTitle: "EDIT TALK",
+				pageDescription: "Edit talk proposal details below."
 			},
 
 			className: "talk-modal",
@@ -61,26 +59,11 @@
 				var data = Backbone.Syphon.serialize( this );
 				console.log( data );
 
-				// set the data on the model and validate it
-				var setSuccess = this.model.set( data, { 
-					toValidate: [ 'title', 'description' ],
-					validate: true 
+
+				this.promise = this.model.save( data, {
+					wait: true,
+					toValidate: [ 'title', 'description' ]
 				});
-
-				// if a successful set then send to server. Note no validation required.
-				if( setSuccess ) {
-					// store the promise for messaging purposes
-					this.model.promise = $.Deferred();
-
-					this.collection.create( this.model, {
-						wait: true,
-						toValidate: [],
-						success: function( model ) {
-							console.log( "custom success for handleTalkSubmit" );
-							model.promise.resolve();
-						}
-					});
-				}
 			},
 
 			handleMessaging: function( model, messageObject, options ) {

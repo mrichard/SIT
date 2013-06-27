@@ -12,9 +12,10 @@
 		'collections/talks',
 		'views/composite/talksMainList',
 		'views/item/newTalk',
+		'views/item/editTalk',
 		'models/account'
 	],
-	function( $, Backbone, Communicator, moduleConfiguration, Talk, Talks, TalksMainListView, NewTalkView, account ) {
+	function( $, Backbone, Communicator, moduleConfiguration, Talk, Talks, TalksMainListView, NewTalkView, EditTalkView, account ) {
 
 		var TalkModule = Backbone.Marionette.Controller.extend({
 		
@@ -58,6 +59,7 @@
 
 				// set up events API
 				Communicator.command.setHandler( "APP:TALK:NEW", this.handleNewTalk, this );
+				Communicator.command.setHandler( "APP:TALK:EDIT", this.handleEditTalk, this );
 				Communicator.command.setHandler( "APP:TALK:MINE", this.handleMyTalks, this );
 				Communicator.command.setHandler( "APP:TALK:ALL", this.handleAllTalks, this );
 			},
@@ -107,6 +109,18 @@
 					Communicator.command.execute( "APP:ACCOUNT:LOGIN", defer );
 				}
 				
+			},
+
+			handleEditTalk: function( talk ) {
+				console.log("handleEditTalk");
+				console.log( talk );
+
+				var userData = Communicator.reqres.request( "APP:ACCOUNT:USER");
+
+				Communicator.command.execute( "APP:MODAL:SHOW", new EditTalkView({ 
+					model: talk,
+					userData: userData
+				}), "modal-wide" );
 			},
 
 			handleAllTalks: function() {

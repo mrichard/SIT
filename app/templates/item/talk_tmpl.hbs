@@ -1,7 +1,7 @@
 <div class="modal-header">
 	<button type="button" class="close close-modal">&times;</button>
-	<h3>NEW TALK</h3>
-	<p>Enter new talk proposal details below.</p>
+	<h3>{{pageTitle}}</h3>
+	<p>{{pageDescription}}</p>
 </div>
 
 <form class="form-horizontal">
@@ -34,7 +34,7 @@
 					<div class="control-group {{#unless description}}{{#if type}}{{type}}{{/if}}{{/unless}}">
 						<label class="control-label">DESCRIPTION:</label>
 						<div class="controls">
-							<textarea type="description" name="description" value="{{description}}" placeholder="Enter description" rows="6"></textarea>
+							<textarea type="description" name="description" value="" placeholder="Enter description" rows="6">{{description}}</textarea>
 						</div>
 					</div>
 				</div>
