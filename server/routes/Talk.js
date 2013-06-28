@@ -70,10 +70,13 @@ module.exports = {
 						console.log("hasUpvoted!!!!");
 						response.json({
 							talk: talk,
-							messaging: { type: 'error', message: 'You have already upvoted this talk!' }
+							messaging: { type: 'error', location: "page", message: 'You have already upvoted this talk!' }
 						});
 					} else {
-						request.body.votes.users.push( sessionId );
+						if( votesIncreased ) {
+							request.session['justUpvoted'] = true;
+							request.body.votes.users.push( sessionId );
+						}
 						next();
 					}
 	
@@ -89,10 +92,25 @@ module.exports = {
 		
 		//modify the put to send a message with the object
 		talkContoller.documents( 'instance', 'put', function( request, response, next ){
-			request.baucis.documents = {
-				talk: request.baucis.documents,
-				messaging: { type: 'success', message: 'Edits has been saved!' }
-			};
+
+			console.log("check PUT type. session == ");
+			console.log( request.session );
+
+			// upvote message
+			if( request.session.justUpvoted ) {
+				request.baucis.documents = {
+					talk: request.baucis.documents,
+					messaging: { type: 'success', location: "page", message: 'Your vote has been counted!' }
+				};
+
+				delete request.session.justUpvoted;
+
+			} else {
+				request.baucis.documents = {
+					talk: request.baucis.documents,
+					messaging: { type: 'success', location: "modal", message: 'Edits has been saved!' }
+				};
+			}	
 
 			response.json( request.baucis.documents );
 		});
@@ -105,7 +123,7 @@ module.exports = {
 		
 			request.baucis.documents = {
 				talk: request.baucis.documents,
-				messaging: { type: 'success', message: 'New talk has been created!' }
+				messaging: { type: 'success', location: "modal", message: 'New talk has been created!' }
 			};
 
 			
@@ -118,7 +136,7 @@ module.exports = {
 			console.log( "DELETE: documents" );
 
 			request.baucis.documents = {
-				messaging: { type: 'success', message: 'Talk successfully deleted!' }
+				messaging: { type: 'success', location: "page", message: 'Talk successfully deleted!' }
 			};
 
 			response.json( request.baucis.documents );

@@ -62,7 +62,7 @@
 					});
 				}
 				else {
-					alert( "you must be logged in to upvote!!" );
+					Communicator.mediator.trigger( "APP:MESSAGING", { type: "error", location: "page", message: "You must be logged in to upvote!" });
 				}
 			},
 
@@ -76,8 +76,10 @@
 			},
 
 			handleMessaging: function( model, messageObject, options ) {
-				// TODO send this to messaging module
-				Communicator.mediator.trigger( "APP:MESSAGING", messageObject );
+				// handle messaging if it's destined for modal
+				if( messageObject.location === "page" ) {
+					Communicator.mediator.trigger( "APP:MESSAGING", messageObject );
+				}
 			}
 		});
 

@@ -99,8 +99,12 @@
 			displayMessaging: function( model, messageObject, options ) {
 				console.log("Register: displayMessaging");
 
-				this.templateHelpers = _.extend( this.templateHelpers || {}, messageObject );
-				this.render();
+				// handle messaging if it's destined for modal
+				if( messageObject.location === "modal" ) {
+					this.templateHelpers = _.extend( this.templateHelpers || {}, messageObject );
+					this.render();
+					delete this.templateHelpers.type;
+				}
 			},
 
 			handleClose: function() {
