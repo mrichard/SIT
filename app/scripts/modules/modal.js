@@ -28,9 +28,6 @@
 				// create a module
 				this.submodules = {};
 				this.module = Backbone.Marionette.Module.create( this, this._name, this.moduleDefinition );
-
-				// subscribe to start up events
-				Communicator.mediator.on( moduleConfiguration[ this._name ], this.module.start, this.module);
 			},
 
 			moduleDefinition: function( MyModule, Controller, Backbone, Marionette, $, _ ) {
