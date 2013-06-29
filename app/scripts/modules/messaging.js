@@ -55,6 +55,11 @@
 				this.messageModel.set( messageObject );
 
 				this.region.show( new MessageView({ model: this.messageModel }) );
+
+				// after 4 seconds fade out the message
+				setTimeout( _.bind(function(){
+					this.region.currentView.$el.fadeOut( 500 );
+				}, this), 3000);
 			}
 		});
 
