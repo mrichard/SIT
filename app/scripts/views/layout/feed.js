@@ -5,21 +5,26 @@
 
 	root.define([
 		'backbone',
-		'hbs!tmpl/errorMessage'
+		'hbs!tmpl/layout/feed_tmpl'
 	],
-	function( Backbone, MessageTmpl  ) {
+	function( Backbone, FeedTmpl  ) {
 
-		/* Return a ItemView class definition */
-		return Backbone.Marionette.ItemView.extend({
+		/* Return a Layout class definition */
+		return Backbone.Marionette.Layout.extend({
 		
 			initialize: function() {
-				console.log("initialize a Message ItemView");
+				console.log("initialize a Feed Layout");
 			},
 			
 	    	template: {
 				type: 'handlebars',
-				template: MessageTmpl
+				template: FeedTmpl
 			},
+	    	
+	    	className: 'feed well',
+
+	    	/* Layout sub regions */
+	    	regions: {},
 
 	    	/* ui selector cache */
 	    	ui: {},

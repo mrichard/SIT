@@ -26,13 +26,9 @@ TO DO:
 
 
 TO DO:
-
-1. Add a delete talk button ( DELETE )
-2. Create a mytalks area
-
-		TODO:
-			make messaging auto fade after 5 seconds
-			have context to messaging - sometimes show on modal, sometimes show on page level
+	1. remove title on "mytalks". Instead toggle My Talks to All Talks
+	2. show hover state on column headers 
+	3. move server messaging to contants file
 
 
 3. COULD TRY TO USE DEFERRED ACTION AND SEND TO LOGIN WHEN TRYING TO VOTE AND NOT LOGGED IN.
@@ -40,10 +36,6 @@ TO DO:
 		if not logged in
 		then bring up login modal
 		after loggin then trigger upvote automatically
-4. build sorting on columns - client side
-5. build a messages module
-6. move server messaging to contants file
-
 
 
 

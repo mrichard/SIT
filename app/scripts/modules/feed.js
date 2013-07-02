@@ -5,20 +5,21 @@
 
 	root.define([
 		'backbone',
-		'communicator'
+		'communicator',
+		'views/layout/feed'
 	],
-	function( Backbone, Communicator ) {
+	function( Backbone, Communicator, FeedLayout ) {
 
 		var Navigation = Backbone.Marionette.Controller.extend({
 		
 			initialize: function( options ) {
-				console.log("initialize a MODULE_NAME Controller");
+				console.log("initialize a Feed Controller");
 
 				// module name
-				this._name = "MODULE_NAME";
+				this._name = "feed";
 
 				// create a region
-				this.region = Communicator.reqres.request( "RM:addRegion", _.uniqueId('region_'), 'REGION_ID' );
+				this.region = Communicator.reqres.request( "RM:addRegion", _.uniqueId('region_'), '#feed-region' );
 
 				// create a module
 				this.submodules = {};
@@ -32,8 +33,13 @@
 				MyModule.controller = Controller;
 
 				MyModule.addInitializer(function(){
-				    console.log("Starting MODULE_NAME module !!");
+				    console.log("Starting Feed module !!");
+				    this.controller.initFeed();
 				});
+			},
+
+			initFeed: function() {
+				this.region.show( new FeedLayout() );
 			}
 		});
 

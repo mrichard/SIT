@@ -9,7 +9,8 @@
 	    modal: "APP:START",
 	    account: "APP:START",
 	    talk: "APP:START",
-	    messaging: "APP:START"
+	    messaging: "APP:START",
+	    feed: "APP:START"
 	});
 
 }).call( this );
