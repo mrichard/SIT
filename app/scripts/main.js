@@ -6,6 +6,7 @@
     root.require([
 		'backbone',
 		'application',
+		'socket.io',
 		'regions/regionManager',
 		'modules/moduleLoader'
 	],

@@ -7,13 +7,14 @@ var async = require('async');
 var hbs = require('express-hbs');
 
 var faye = require('faye');
-var socketIO = require('socket.io');
 
 var dbSetup = require('./db/setup');
 var config = require('./config/config');
 
 var account = require('./routes/Account');
 var talk = require('./routes/Talk');
+
+var socket = require('./socketio/main');
 
 var routeRoot = config.routeRoot;
 
@@ -59,10 +60,17 @@ talk.initRoutes( app );
 
 /*** START SERVER ***/
 var createServer = function() {
-	http.createServer(app).listen(app.get('port'), function(){
+  var server = http.createServer(app);
+
+  socket.init( server );
+
+	server.listen(app.get('port'), function(){
 		console.log('Express App started!');
-		console.log( app.routes );
 	});
+
+  socket.getIO().sockets.on( 'connection', function( socket ){
+    socket.emit( 'news', { hello: 'world' });
+  });
 };
 
 dbSetup.init( createServer );

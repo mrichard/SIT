@@ -23,6 +23,7 @@
                 ],
                 exports: 'Backbone'
             },
+
             bootstrap: {
                 deps: ['jquery'],
                 exports: 'jquery'
@@ -59,7 +60,10 @@
             hbs: '../bower_components/require-handlebars-plugin/hbs',
 
             /* marionette and handlebars plugin */
-            'marionette.handlebars': '../bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars'
+            'marionette.handlebars': '../bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars',
+
+            /* socket io */
+            'socket.io': 'vendor/socket.io'
         },
 
         hbs: {
