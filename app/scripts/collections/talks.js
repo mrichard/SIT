@@ -17,13 +17,7 @@
 
 	    		model: Talk,
 
-	    		url: function() {
-	    			/*if( this.fetchType ) {
-	    				return '/api/v1/talks/' + '?mine=true';
-	    			}*/
-
-	    			return '/api/v1/talks/';
-	    		},
+	    		url: '/api/v1/talks/',
 
 	    		comparator: function( talk ) {
 	    			console.log( this.comparatorKey );

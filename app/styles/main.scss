@@ -68,4 +68,19 @@ body > .container {
 
 .feed {
 	margin: 0 20px 0 0;
+
+	&.well {
+		padding: 3px 0;
+	}
+
+	.dashboard {
+		margin: 0;
+		text-align: center;
+		text-decoration: underline;
+	}
+
+	li:not(.nav-header) {
+		padding-left: 10px;
+	}
 }
+

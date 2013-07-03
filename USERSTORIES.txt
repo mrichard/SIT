@@ -40,18 +40,11 @@ TO DO:
 
 
 Socket IO:
-	get a message up an running
+	add redis to store active logged in users
 
-	Logged in users:
-		- on LOGIN: emit a message of the logged in user
-		- on LOGOUT: emmit a message of the logged out user
+	on login add account to redis
+	on logout remove account from redis
+	on auth attempt (page load), send the entire logged in users store from redis
 
-		Message:
-			{
-				feed: "[USER] has just logged in",		// feed messaging
-				action: {
-					type: "add",	// collection action
-					data: {}		// Backbone.Model
-				}
-			}
+	create the feed collection
 

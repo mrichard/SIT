@@ -6,9 +6,11 @@
 	root.define([
 		'backbone',
 		'communicator',
-		'views/layout/feed'
+		'views/layout/feed',
+		'views/composite/feedUsers',
+		'collections/feedUsers'
 	],
-	function( Backbone, Communicator, FeedLayout ) {
+	function( Backbone, Communicator, FeedLayout, FeedUsersView, FeedUsers ) {
 
 		var Navigation = Backbone.Marionette.Controller.extend({
 		
@@ -39,7 +41,14 @@
 			},
 
 			initFeed: function() {
-				this.region.show( new FeedLayout() );
+				// build layout
+				var feedLayout = new FeedLayout();
+
+				// show on module region
+				this.region.show( feedLayout );
+
+				// show  users sub view in layout region
+				feedLayout.users.show( new FeedUsersView({ collection: new FeedUsers() }) );
 			}
 		});
 

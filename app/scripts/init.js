@@ -8,7 +8,7 @@
         baseUrl: "/scripts",
 
         /* starting point for application */
-        deps: ['backbone.marionette', 'marionette.handlebars', 'backbone.syphon', 'bootstrap', 'bootstrap-button', 'main'],
+        deps: ['backbone', 'backbone.marionette', 'marionette.handlebars', 'backbone.syphon', 'bootstrap', 'bootstrap-button', 'main'],
 
 
         shim: {
@@ -37,6 +37,7 @@
 
             /* backbone plugins */
             'backbone.syphon': '../bower_components/backbone.syphon/lib/amd/backbone.syphon',
+            'backbone.iobind': '../bower_components/backbone.iobind/dist/backbone.iobind',
 
             /* alias all marionette libs */
             'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette',

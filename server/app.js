@@ -67,10 +67,6 @@ var createServer = function() {
 	server.listen(app.get('port'), function(){
 		console.log('Express App started!');
 	});
-
-  socket.getIO().sockets.on( 'connection', function( socket ){
-    socket.emit( 'news', { hello: 'world' });
-  });
 };
 
 dbSetup.init( createServer );

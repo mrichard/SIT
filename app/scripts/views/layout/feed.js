@@ -24,7 +24,10 @@
 	    	className: 'feed well',
 
 	    	/* Layout sub regions */
-	    	regions: {},
+	    	regions: {
+	    		users: ".feed-users",
+	    		notices: ".feed-notices"
+	    	},
 
 	    	/* ui selector cache */
 	    	ui: {},

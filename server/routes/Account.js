@@ -1,6 +1,8 @@
 var account = require('../models/Account');
 var mailer = require('../mail/mailer')
 
+var socket = require('../socketio/main');
+
 module.exports = {
 	login: function( req, res, next ) {
 		console.log("login route");
@@ -28,6 +30,16 @@ module.exports = {
 				// store user account in session
 				req.session.account = account;
 
+				// TEMP SPOT FOR SOCKET IO
+				socket.getIO().sockets.emit('feedusers:delta', {
+					message: account.firstName + ' ' + account.lastName + ' just logged in',
+					action: {
+						type: "add",
+						data: account
+					}
+				});
+
+				// send http response
 				res.json(200, {
 					account: account,
 					messaging: { type: 'success', message: 'You are now logged in. Window will close shortly.' }
@@ -46,6 +58,15 @@ module.exports = {
 	logout: function( req, res, next ) {
 		console.log( "logout route" );
 		console.log( req.body );
+
+		// TEMP SPOT FOR SOCKET IO
+		socket.getIO().sockets.emit('feedusers:delta', {
+			message: req.session.account.firstName + ' ' + req.session.account.lastName + ' just logged out',
+			action: {
+				type: "remove",
+				data: req.session.account
+			}
+		});
 
 		req.session.account = null;
 
@@ -145,8 +166,32 @@ module.exports = {
 
 	authenticated: function( req, res, next ) {
 		if( req.session.account ) {
+
+			// TEMP SPOT FOR SOCKET IO
+			socket.getIO().sockets.emit('feedusers:delta', {
+				message: req.session.account.firstName + ' ' + req.session.account.lastName + ' just logged in',
+				action: {
+					type: "add",
+					data: req.session.account
+				}
+			});
+
 			res.json( 200, { account: req.session.account });
 		} else {
+
+
+
+			// TEMP SPOT FOR SOCKET IO 
+			/* TODO - need redis store for logged in users
+			socket.getIO().sockets.emit('feedusers:delta', {
+				message: req.session.account.firstName + ' ' + req.session.account.lastName + ' just logged in',
+				action: {
+					type: "add",
+					data: req.session.account
+				}
+			});
+			*/
+
 			res.send( 401 );
 		}
 	}
