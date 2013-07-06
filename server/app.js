@@ -28,6 +28,10 @@ app.configure(function(){
     app.set('views', __dirname + '../app/scripts/views');
 });
 
+// TEMP APPLIATION STORE for logged in users - should be replaced by redis - CLEANUP
+app.locals({
+  loggedInUsers: []
+});
 
 /*** MIDDLEWARE ***/
 app.use(function(req, res, next){
@@ -47,6 +51,7 @@ app.get('/', function(req, res){
 });
 
 // account
+account = account({ app: app });
 app.post( '/api/v1/login', account.login );
 app.put( '/api/v1/login', account.login );
 app.put( '/api/v1/logout', account.logout );

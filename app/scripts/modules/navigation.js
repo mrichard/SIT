@@ -50,8 +50,6 @@
 				navBar.on( "NAV:TALK", this.handleTalk, this );
 
 				this.region.show( navBar );
-
-				account.isAuthenticated();
 			},
 
 			handleAccount: function( action ) {

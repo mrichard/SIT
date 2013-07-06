@@ -47,6 +47,9 @@
 
 				Communicator.reqres.setHandler( "APP:ACCOUNT:ISLOGGEDIN", this.isLoggedIn, this );
 				Communicator.reqres.setHandler( "APP:ACCOUNT:USER", this.getUser, this );
+
+				// cehck is loggedin on start up
+				account.isAuthenticated();
 			},
 
 			handleAccountLogin: function( previousAction ) {
