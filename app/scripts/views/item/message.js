@@ -13,16 +13,16 @@
 		return Backbone.Marionette.ItemView.extend({
 		
 			initialize: function() {
-				console.log("initialize a Message ItemView");
+				console.log('initialize a Message ItemView');
 			},
 			
-	    	template: {
+			template: {
 				type: 'handlebars',
 				template: MessageTmpl
 			},
 
-	    	/* ui selector cache */
-	    	ui: {},
+			/* ui selector cache */
+			ui: {},
 
 			/* Ui events hash */
 			events: {},

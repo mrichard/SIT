@@ -10,7 +10,7 @@
 	],
 	function( Backbone, FeedUser, FeedUsersTmpl  ) {
 
-		/* Return a CompositeView class definition */
+		/* Return a CompositeView  class definition */
 		return Backbone.Marionette.CompositeView.extend({
 		
 			initialize: function() {

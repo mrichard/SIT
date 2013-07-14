@@ -13,18 +13,20 @@
 		return Backbone.Marionette.ItemView.extend({
 		
 			initialize: function() {
-				console.log("initialize a FeedUser ItemView");
+				console.log('initialize a FeedUser ItemView');
 			},
 			
-	    	template: {
+			template: {
 				type: 'handlebars',
 				template: FeedUserTmpl
 			},
 
 			tagName: 'li',
 
-	    	/* ui selector cache */
-	    	ui: {},
+			className: 'new-item',
+
+			/* ui selector cache */
+			ui: {},
 
 			/* Ui events hash */
 			events: {},
@@ -35,3 +37,5 @@
 
 	});
 }).call( this );
+
+
