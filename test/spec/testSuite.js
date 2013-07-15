@@ -4,7 +4,7 @@ define(function() {
 	/* return an array of specs to be run */
 	return {
 		specs: [
-			'spec/models/exampleTest'
+			'spec/models/message.spec'
 		]
 	};
 });

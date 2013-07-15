@@ -13,7 +13,9 @@
     <script>
         mocha.ui('bdd');
         mocha.reporter('html');
-        expect = chai.expect;
+        var expect = chai.expect,
+        should = chai.should();
+        assert = chai.assert;
     </script>
     <script src="../app/bower_components/requirejs/require.js" data-main="../test/SpecRunner"></script>
 </body>

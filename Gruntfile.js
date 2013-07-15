@@ -38,7 +38,10 @@ module.exports = function (grunt) {
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                     'test/spec/{,**/}*.js'
                 ],
-                tasks: ['exec', 'livereload']
+                tasks: ['exec'],
+                options: {
+                    livereload: true
+                }
             },
             handlebars: {
                 files: [
@@ -240,7 +243,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.renameTask('regarde', 'watch');
+    //grunt.renameTask('regarde', 'watch');
 
     grunt.registerTask('createDefaultTemplate', function () {
         grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
@@ -256,7 +259,6 @@ module.exports = function (grunt) {
             'compass:server',
             'connect:testserver',
             'express:dev',
-            'livereload-start',
             'open',
             'watch'
         ]);
