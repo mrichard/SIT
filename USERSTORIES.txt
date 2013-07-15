@@ -48,3 +48,11 @@ Socket IO:
 
 	create the feed collection
 
+
+
+Socket IO login:
+
+	1. On initial request
+
+
+

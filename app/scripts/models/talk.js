@@ -40,11 +40,11 @@
 
 					// if talk comes back
 					if( response.talk ) {
-						response.talk.createdDate = ( new Date(response.talk.createdDate) ).toLocaleFormat();
+						response.talk.createdDate = ( new Date(response.talk.createdDate) ).toLocaleDateString();
 						return response.talk;
 					}
 					else {
-						response.createdDate = ( new Date(response.createdDate) ).toLocaleFormat();
+						response.createdDate = ( new Date(response.createdDate) ).toLocaleDateString();
 						return response;
 					}
 				},

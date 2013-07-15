@@ -23,6 +23,7 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         yeoman: yeomanConfig,
+
         watch: {
             compass: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -34,9 +35,10 @@ module.exports = function (grunt) {
                     '{.tmp,<%= yeoman.app %>}/styles/{,**/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,**/}*.js',
                     '{.tmp,<%= yeoman.app %>}/templates/{,**/}*.hbs',
-                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}'
+                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+                    'test/spec/{,**/}*.js'
                 ],
-                tasks: ['livereload']
+                tasks: ['exec', 'livereload']
             },
             handlebars: {
                 files: [
@@ -45,47 +47,28 @@ module.exports = function (grunt) {
                 tasks: ['handlebars']
             }
         },
+
+        /* testing setup */
         connect: {
-            options: {
-                port: 9000,
-                // change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
-            },
-            livereload: {
+            testserver: {
                 options: {
-                    middleware: function (connect) {
-                        return [
-                            lrSnippet,
-                            mountFolder(connect, '.tmp'),
-                            mountFolder(connect, 'app')
-                        ];
-                    }
-                }
-            },
-            test: {
-                options: {
-                    middleware: function (connect) {
-                        return [
-                            mountFolder(connect, '.tmp'),
-                            mountFolder(connect, 'test')
-                        ];
-                    }
-                }
-            },
-            dist: {
-                options: {
-                    middleware: function (connect) {
-                        return [
-                            mountFolder(connect, 'dist')
-                        ];
-                    }
+                    port: 1234,
+                    base: '.'
                 }
             }
         },
+
+        exec: {
+            mocha: {
+                command: 'mocha-phantomjs http://localhost:<%= connect.testserver.options.port %>/test',
+                stdout: true
+            }
+        },
+
         express: {
             options: {
                 // Override defaults here
-                port: '<%= connect.options.port %>'
+                port: 9000
             },
             dev: {
                 options: {
@@ -105,7 +88,7 @@ module.exports = function (grunt) {
         },
         open: {
             server: {
-                path: 'http://localhost:<%= connect.options.port %>'
+                path: 'http://localhost:<%= express.options.port %>'
             }
         },
         clean: {
@@ -127,29 +110,8 @@ module.exports = function (grunt) {
             all: {
                 options: {
                     run: true,
-                    urls: ['http://localhost:<%= connect.options.port %>/index.html']
+                    urls: ['http://localhost:<%= express.options.port %>/index.html']
                 }
-            }
-        },
-        coffee: {
-            dist: {
-                files: [{
-                    // rather than compiling multiple files here you should
-                    // require them into your main .coffee file
-                    expand: true,
-                    cwd: '<%= yeoman.app %>/scripts',
-                    src: '*.coffee',
-                    dest: '.tmp/scripts',
-                    ext: '.js'
-                }]
-            },
-            test: {
-                files: [{
-                    expand: true,
-                    cwd: '.tmp/spec',
-                    src: '*.coffee',
-                    dest: 'test/spec'
-                }]
             }
         },
         compass: {
@@ -284,35 +246,15 @@ module.exports = function (grunt) {
         grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
     });
 
-    grunt.registerTask('server', function (target) {
+    grunt.registerTask('default', function (target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
         }
 
         grunt.task.run([
             'clean:server',
-            'coffee:dist',
-            'createDefaultTemplate',
-            'handlebars',
             'compass:server',
-            'livereload-start',
-            'connect:livereload',
-            'open',
-            'watch'
-        ]);
-    });
-
-    grunt.registerTask('expressserver', function (target) {
-        if (target === 'dist') {
-            return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
-        }
-
-        grunt.task.run([
-            'clean:server',
-            'coffee:dist',
-            'createDefaultTemplate',
-            'handlebars',
-            'compass:server',
+            'connect:testserver',
             'express:dev',
             'livereload-start',
             'open',
@@ -322,7 +264,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('test', [
         'clean:server',
-        'coffee',
         'createDefaultTemplate',
         'handlebars',
         'compass',
@@ -331,8 +272,6 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('build', [
-        'clean:dist',
-        'coffee',
         'createDefaultTemplate',
         'handlebars',
         'compass:dist',
@@ -347,9 +286,9 @@ module.exports = function (grunt) {
         'usemin'
     ]);
 
-    grunt.registerTask('default', [
+    /*grunt.registerTask('default', [
         'jshint',
         'test',
         'build'
-    ]);
+    ]);*/
 };
