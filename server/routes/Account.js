@@ -2,7 +2,7 @@ var _ = require('underscore');
 
 var account = require('../models/Account');
 var mailer = require('../mail/mailer');
-var socket = require('../socketio/main');
+var socket = require('../socketio/main')();
 
 
 module.exports = function( options ) {
@@ -180,19 +180,9 @@ module.exports = function( options ) {
 
 		},
 
-		authenticated: function( req, res, next ) {
+		authenticated: function( req, res ) {
 
-			console.log( "authenticated route: " );
-			console.log( app.locals.loggedInUsers );
-
-			// TEMP SPOT FOR SOCKET IO - CLEANUP
-			socket.getIO().sockets.emit('feedusers:delta', {
-				message: '',
-				action: {
-					type: "add",
-					data: app.locals.loggedInUsers
-				}
-			});
+			console.log( 'authenticated route: ' );
 
 			if( req.session.account ) {
 				res.json( 200, { account: req.session.account });

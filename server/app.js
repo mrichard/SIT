@@ -67,6 +67,7 @@ talk.initRoutes( app );
 var createServer = function() {
   var server = http.createServer(app);
 
+  socket = socket({ app: app });
   socket.init( server );
 
 	server.listen(app.get('port'), function(){

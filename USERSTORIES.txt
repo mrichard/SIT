@@ -52,7 +52,21 @@ Socket IO:
 
 Socket IO login:
 
-	1. On initial request
+	1. On page request ( /authenticated ), send logged in user the list of active logged in users
+	2. On 
 
 
+
+TESTING:
+	1. installed phantom: brew install phantomjs
+	2. npm install mocha-phantomjs --save-dev
+	3. set up test directory
+	4. add SpecRunner.js to watch
+	5. add exec to watch tasks
+	6. npm install grunt-exec --save-dev
+	7. add mocha to bower instead of grunt
+
+	http://hdnrnzk.me/2013/01/10/backbone-requirejs-jasmine-phantomjs-and-grunt/
+	http://projectpoppycock.com/the-best-way-to-test-requirejs-code-with-mocha-phantomjs-and-grunt/
+	https://github.com/metaskills/mocha-phantomjs
 
